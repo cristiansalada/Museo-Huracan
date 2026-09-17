@@ -1,0 +1,3674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Museo Quemero - Club Atlético Huracán | Archivo Histórico y Estadístico</title>
+  <meta name="description" content="Plataforma oficial del patrimonio histórico y estadístico del Club Atlético Huracán. Base de datos completa con jugadores, técnicos, partidos, palmarés y camisetas del Globo.">
+  
+  <!-- Favicon Globo SVG -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='45' r='38' fill='%23E01E2B'/><path d='M42 83 L58 83 L54 94 L46 94 Z' fill='%23B91420'/><path d='M45 45 Q50 30 55 45 Q50 60 45 45' fill='white'/></svg>">
+
+  <!-- Tailwind CSS CDN para agilidad y diseño responsivo -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            globo: {
+              DEFAULT: '#E01E2B',
+              dark: '#B91420',
+              light: '#FEE2E2'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Estilos del Museo Quemero -->
+  <style>
+/* ==========================================================================
+   MUSEO QUEMERO - CLUB ATLÉTICO HURACÁN
+   Estilos inspirados en museogranate.clublanus.com
+   ========================================================================== */
+
+:root {
+  --color-globo: #E01E2B;
+  --color-globo-dark: #B91420;
+  --color-globo-light: #FEE2E2;
+  --color-globo-gradient: linear-gradient(135deg, #E01E2B 0%, #A3101A 100%);
+  --color-bg-dark: #0F172A;
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #F8FAFC;
+  --color-border: #E2E8F0;
+  --color-text-main: #0F172A;
+  --color-text-muted: #64748B;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --radius-card: 16px;
+  --radius-button: 9999px;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-hover: 0 20px 25px -5px rgb(224 30 43 / 0.15), 0 8px 10px -6px rgb(224 30 43 / 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #F8FAFC;
+  color: var(--color-text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Scrollbar estilizada */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Layout Principal */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Barra Lateral (Sidebar) */
+.sidebar {
+  width: 280px;
+  background: var(--color-globo-gradient);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+}
+
+.sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.logo-globo {
+  width: 44px;
+  height: 44px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+  transition: transform 0.3s ease;
+}
+
+.logo-container:hover .logo-globo {
+  transform: rotate(-8deg) scale(1.08);
+}
+
+.brand-text h1 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.brand-text span {
+  font-size: 0.75rem;
+  opacity: 0.85;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 1rem 0.875rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.65rem 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  border-radius: var(--radius-button);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.nav-link svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  transform: translateX(3px);
+}
+
+.nav-link.active {
+  background-color: #FFFFFF;
+  color: var(--color-globo);
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-link.active svg {
+  color: var(--color-globo);
+  opacity: 1;
+}
+
+.sidebar-footer {
+  padding: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+}
+
+/* Área Principal de Contenido */
+.main-wrapper {
+  flex: 1;
+  margin-left: 280px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100vh;
+}
+
+/* Barra Superior (Top Header) */
+.topbar {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--color-border);
+  height: 72px;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--color-text-main);
+  border-radius: 8px;
+}
+
+/* Buscador Global */
+.search-box-container {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.65rem 1rem 0.65rem 2.65rem;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface-raised);
+  font-size: 0.875rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  background-color: #FFFFFF;
+  border-color: var(--color-globo);
+  box-shadow: 0 0 0 3px rgba(224, 30, 43, 0.15);
+}
+
+/* Dropdown de resultados de búsqueda */
+.search-results-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+  max-height: 380px;
+  overflow-y: auto;
+  z-index: 60;
+  display: none;
+}
+
+.search-results-dropdown.visible {
+  display: block;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #F1F5F9;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.search-result-item:hover {
+  background-color: #F8FAFC;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-globo-light);
+  color: var(--color-globo);
+}
+
+/* Contenido Principal de las Vistas */
+.content-area {
+  padding: 2rem 2.5rem;
+  max-width: 1540px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Vistas */
+.view-section {
+  display: none;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.view-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Títulos de Sección */
+.section-header {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-globo);
+  letter-spacing: -0.025em;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+/* Tarjetas Estilo Museo Granate */
+.card-granate {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+}
+
+.card-granate:hover {
+  border-color: rgba(224, 30, 43, 0.3);
+  box-shadow: var(--shadow-md);
+}
+
+.card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-globo);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Sección "Un Día Como Hoy" */
+.on-this-day-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.calendar-control {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+}
+
+.calendar-select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-globo);
+  cursor: pointer;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.timeline-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.timeline-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-globo-light);
+  color: var(--color-globo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.timeline-content h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.25rem;
+}
+
+.timeline-content p {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+/* Grillas de Podio de Leyendas / Jugadores */
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.player-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.player-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(224, 30, 43, 0.4);
+  box-shadow: var(--shadow-hover);
+}
+
+.player-avatar-wrapper {
+  height: 200px;
+  background: linear-gradient(180deg, #F8FAFC 0%, #E2E8F0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.player-avatar-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 4px solid #FFFFFF;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-globo);
+  font-weight: 800;
+  font-size: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.player-card-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(4px);
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  z-index: 3;
+}
+
+.player-card-info {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.player-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+}
+
+.player-sub {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+}
+
+.player-stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  background: var(--color-surface-raised);
+  padding: 0.75rem;
+  border-radius: 10px;
+  margin-top: auto;
+  text-align: center;
+}
+
+.stat-item .stat-val {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--color-globo);
+}
+
+.stat-item .stat-lbl {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+/* Filtros y Pestañas */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.filter-pill {
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.825rem;
+  font-weight: 600;
+  border: 1px solid var(--color-border);
+  background: #FFFFFF;
+  color: var(--color-text-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-pill:hover {
+  border-color: var(--color-globo);
+  color: var(--color-globo);
+}
+
+.filter-pill.active {
+  background: var(--color-globo);
+  border-color: var(--color-globo);
+  color: #FFFFFF;
+}
+
+/* Palmarés / Títulos */
+.titles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.75rem;
+}
+
+.title-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.title-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--color-globo-gradient);
+}
+
+.title-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.title-year-badge {
+  display: inline-block;
+  background: var(--color-globo);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 1.1rem;
+  padding: 0.2rem 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.title-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+
+.title-details {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+}
+
+/* Rivales e Historiales */
+.rival-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rival-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rival-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--color-surface-raised);
+  border-radius: 10px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+/* Trivia Quemera */
+.trivia-container {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.trivia-progress-bar {
+  height: 8px;
+  background: #E2E8F0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1.75rem;
+}
+
+.trivia-progress-fill {
+  height: 100%;
+  background: var(--color-globo);
+  transition: width 0.3s ease;
+}
+
+.trivia-question {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  margin-bottom: 1.5rem;
+}
+
+.trivia-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.trivia-option-btn {
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  background: #FFFFFF;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.trivia-option-btn:hover {
+  border-color: var(--color-globo);
+  background: #FFF5F5;
+}
+
+.trivia-option-btn.correct {
+  background: #DCFCE7 !important;
+  border-color: #22C55E !important;
+  color: #15803D !important;
+}
+
+.trivia-option-btn.wrong {
+  background: #FEE2E2 !important;
+  border-color: #EF4444 !important;
+  color: #B91C1C !important;
+}
+
+/* Modales */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background: #FFFFFF;
+  border-radius: 20px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  animation: modalPop 0.25s ease-out;
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: #F1F5F9;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: background 0.15s ease;
+}
+
+.modal-close-btn:hover {
+  background: #E2E8F0;
+  color: var(--color-text-main);
+}
+
+/* Botones universales */
+.btn-globo {
+  background: var(--color-globo);
+  color: #FFFFFF;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-button);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-globo:hover {
+  background: var(--color-globo-dark);
+  box-shadow: 0 4px 12px rgba(224, 30, 43, 0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-globo);
+  border: 1px solid var(--color-globo);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-button);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background: var(--color-globo-light);
+}
+
+/* Responsividad Mobile & Tablet */
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main-wrapper {
+    margin-left: 0;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .content-area {
+    padding: 1.5rem 1rem;
+  }
+}
+
+</style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+  <div class="app-container">
+    <!-- ====================================================================
+         SIDEBAR (BARRA LATERAL - ESTILO MUSEO GRANATE)
+         ==================================================================== -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <a href="#inicio" class="logo-container">
+          <!-- Escudo / Globo de Huracán en SVG -->
+          <svg class="logo-globo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="50" cy="42" rx="36" ry="40" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
+            <path d="M50 2 C68 2 84 18 84 42 C84 62 68 78 58 82 L42 82 C32 78 16 62 16 42 C16 18 32 2 50 2 Z" fill="#E01E2B"/>
+            <!-- Canasta y cuerdas del aerostato -->
+            <path d="M42 82 L38 94 L62 94 L58 82 Z" fill="#B91420"/>
+            <rect x="40" y="93" width="20" height="5" rx="1" fill="#FFFFFF"/>
+            <!-- Globo central estilizado -->
+            <path d="M50 14 C40 28 40 56 50 70 C60 56 60 28 50 14 Z" fill="#FFFFFF"/>
+            <path d="M30 30 C38 34 44 38 50 38 C56 38 62 34 70 30" stroke="#FFFFFF" stroke-width="2" fill="none"/>
+            <path d="M32 54 C40 50 45 48 50 48 C55 48 60 50 68 54" stroke="#FFFFFF" stroke-width="2" fill="none"/>
+          </svg>
+          <div class="brand-text">
+            <h1>Museo Quemero</h1>
+            <span>C. A. Huracán • 1908</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#inicio" class="nav-link active">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+          <span>Inicio</span>
+        </a>
+        <a href="#jugadores" class="nav-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+          <span>Jugadores</span>
+        </a>
+        <a href="#tecnicos" class="nav-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+          <span>Técnicos</span>
+        </a>
+        <a href="#palmares" class="nav-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+          <span>Palmarés (13 Títulos)</span>
+        </a>
+        <a href="#partidos" class="nav-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          <span>Partidos Históricos</span>
+        </a>
+        <a href="#rivales" class="nav-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          <span>Rivales & Clásico</span>
+        </a>
+        <a href="#estadios" class="nav-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+          <span>El Palacio Ducó</span>
+        </a>
+        <a href="#camisetas" class="nav-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+          <span>Camisetas</span>
+        </a>
+        <a href="#mapamundi" class="nav-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span>Mapamundi Quemero</span>
+        </a>
+        <a href="#trivia" class="nav-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+          <span>Trivia Quemera</span>
+        </a>
+        <a href="#institucion" class="nav-link">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+          <span>Institución & Orígenes</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p>Patrimonio y Archivo Histórico</p>
+        <p class="font-bold text-white mt-0.5">Club Atlético Huracán</p>
+      </div>
+    </aside>
+
+    <!-- ====================================================================
+         ÁREA PRINCIPAL DE CONTENIDO
+         ==================================================================== -->
+    <div class="main-wrapper">
+      
+      <!-- TOPBAR CON BUSCADOR GLOBAL -->
+      <header class="topbar">
+        <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Abrir Menú">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
+        <div class="search-box-container">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <input 
+              type="text" 
+              id="global-search-input" 
+              class="search-input" 
+              placeholder="Estoy buscando... (jugadores, títulos, partidos, rivales)"
+              autocomplete="off"
+            >
+          </div>
+          <!-- Dropdown desplegable con resultados instantáneos -->
+          <div id="search-results-dropdown" class="search-results-dropdown"></div>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+          <button onclick="openMobileShareModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-full transition-colors cursor-pointer" title="Ver en el celular o compartir">
+            <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+            <span class="hidden md:inline">Ver en Celular</span>
+          </button>
+          <span class="hidden sm:inline-block px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full">
+            13 TÍTULOS OFICIALES
+          </span>
+          <a href="#trivia" class="btn-globo text-xs py-2 px-3">
+            Jugar Trivia
+          </a>
+        </div>
+      </header>
+
+      <!-- CONTENEDOR DINÁMICO DE VISTAS -->
+      <main class="content-area">
+
+        <!-- ================================================================
+             VISTA 1: INICIO (HOME CON "UN DÍA COMO HOY" Y PODIO DE LEYENDAS)
+             ================================================================ -->
+        <section id="view-inicio" class="view-section active">
+          
+          <!-- Banner Hero de Bienvenida -->
+          <div class="bg-gradient-to-r from-red-600 to-red-800 rounded-3xl p-8 sm:p-12 text-white shadow-xl mb-10 relative overflow-hidden">
+            <div class="relative z-10 max-w-3xl">
+              <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-extrabold uppercase tracking-wider mb-4">
+                El Globo de Parque Patricios • Archivo Digital
+              </span>
+              <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-4">
+                Bienvenido al Museo Quemero
+              </h2>
+              <p class="text-white/90 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+                Explora más de 115 años de gloria, fútbol arte, títulos históricos y hazañas inmortales. Desde el tetracampeonato de los años 20 y la poesía futbolística del Huracán de Menotti en 1973, hasta las copas de San Juan en 2014 y la mística de "El Palacio" Tomás Adolfo Ducó.
+              </p>
+              <div class="flex flex-wrap gap-4">
+                <a href="#jugadores" class="px-6 py-3 bg-white text-red-600 rounded-full font-bold text-sm shadow-md hover:bg-slate-100 transition-all">
+                  Explorar Jugadores
+                </a>
+                <a href="#palmares" class="px-6 py-3 bg-red-900/50 hover:bg-red-900/70 border border-white/30 rounded-full font-bold text-sm text-white transition-all">
+                  Ver las 13 Copas
+                </a>
+              </div>
+            </div>
+            <!-- Globo de agua de fondo decorativo -->
+            <div class="absolute -bottom-10 -right-10 w-80 h-80 opacity-15 pointer-events-none">
+              <svg viewBox="0 0 100 100" fill="white"><circle cx="50" cy="40" r="36"/><path d="M42 76 L58 76 L54 90 L46 90 Z"/></svg>
+            </div>
+          </div>
+
+          <!-- MÓDULO "UN DÍA COMO HOY" (Inspirado en Museo Granate) -->
+          <div class="mb-12">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+              <div>
+                <h2 class="text-2xl sm:text-3xl font-black text-red-600 tracking-tight">Un día como hoy</h2>
+                <p class="text-slate-500 text-sm">Efemérides, nacimientos y partidos históricos en el calendario quemero</p>
+              </div>
+              <div class="calendar-control">
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <input type="date" id="on-this-day-date" class="calendar-select">
+                <span id="current-date-label" class="text-xs font-bold text-slate-500 pl-2 border-l border-slate-200"></span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <!-- Tarjeta Personas / Efemérides -->
+              <div class="card-granate">
+                <div class="card-header">
+                  <h2>Personas & Hitos</h2>
+                  <span class="text-xs font-bold text-slate-400 uppercase">Efemérides</span>
+                </div>
+                <div class="card-body" id="on-this-day-personas">
+                  <!-- Se llena dinámicamente -->
+                </div>
+              </div>
+
+              <!-- Tarjeta Partidos en esta fecha -->
+              <div class="card-granate">
+                <div class="card-header">
+                  <h2>Partidos Jugados</h2>
+                  <span class="text-xs font-bold text-slate-400 uppercase">Historial</span>
+                </div>
+                <div class="card-body" id="on-this-day-partidos">
+                  <!-- Se llena dinámicamente -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PODIO DE LEYENDAS (MÁXIMOS GOLEADORES Y PRESENCIAS) -->
+          <div class="mb-12">
+            <div class="section-header">
+              <h2 class="section-title">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                Podio de Leyendas - Goleadores Históricos
+              </h2>
+              <p class="section-subtitle">Los máximos artilleros que hicieron gritar a la multitud de Parque Patricios</p>
+            </div>
+            <div id="podio-goleadores-container" class="players-grid mb-10"></div>
+
+            <div class="section-header">
+              <h2 class="section-title">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                Récord de Presencias Oficiales
+              </h2>
+              <p class="section-subtitle">Los futbolistas que más veces defendieron el honor del manto sagrado blanco y rojo</p>
+            </div>
+            <div id="podio-presencias-container" class="players-grid"></div>
+          </div>
+
+        </section>
+
+        <!-- ================================================================
+             VISTA 2: JUGADORES (CATÁLOGO COMPLETO CON FILTROS)
+             ================================================================ -->
+        <section id="view-jugadores" class="view-section">
+          <div class="section-header">
+            <h2 class="section-title">Archivo de Jugadores</h2>
+            <p class="section-subtitle">Base de datos de figuras históricas, cracks y goleadores del Club Atlético Huracán</p>
+          </div>
+
+          <!-- Barra de Búsqueda y Filtros -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm mb-8 space-y-4">
+            <div class="flex flex-col md:flex-row gap-4">
+              <div class="flex-1">
+                <input 
+                  type="text" 
+                  id="search-player-input" 
+                  placeholder="Buscar jugador por nombre o apodo (ej: Masantonio, Houseman, Babington)..."
+                  class="w-full px-4 py-2.5 rounded-full border border-slate-200 text-sm focus:outline-none focus:border-red-600 bg-slate-50"
+                >
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <select id="filter-decada" class="px-3 py-2 border border-slate-200 rounded-full text-xs font-bold text-slate-700 bg-slate-50">
+                  <option value="all">Todas las Décadas</option>
+                  <option value="1920s">Años 20 (Amateurismo Dorado)</option>
+                  <option value="1930s">Años 30 (Masantonio / Baldonedo)</option>
+                  <option value="1940s">Años 40 (Tucho Méndez / Alberti)</option>
+                  <option value="1970s">Años 70 (El Campeón 73)</option>
+                  <option value="1990s">Años 90 (Turco Mohamed)</option>
+                  <option value="2000s">Años 2000 (Pastore / Cappa)</option>
+                  <option value="2010s">Años 2010 (Marcos Díaz / Wanchope)</option>
+                  <option value="2020s">Años 2020 (Pussetto)</option>
+                </select>
+
+                <select id="filter-posicion" class="px-3 py-2 border border-slate-200 rounded-full text-xs font-bold text-slate-700 bg-slate-50">
+                  <option value="all">Todas las Posiciones</option>
+                  <option value="Delantero">Delanteros</option>
+                  <option value="Mediocampista">Mediocampistas</option>
+                  <option value="Defensor">Defensores</option>
+                  <option value="Arquero">Arqueros</option>
+                </select>
+
+                <select id="filter-sort" class="px-3 py-2 border border-slate-200 rounded-full text-xs font-bold text-slate-700 bg-slate-50">
+                  <option value="goles">Ordenar: Más Goles</option>
+                  <option value="partidos">Ordenar: Más Presencias</option>
+                  <option value="nombre">Ordenar: Alfabético</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div id="jugadores-list-container" class="players-grid"></div>
+        </section>
+
+        <!-- ================================================================
+             VISTA 3: TÉCNICOS
+             ================================================================ -->
+        <section id="view-tecnicos" class="view-section">
+          <div class="section-header">
+            <h2 class="section-title">Directores Técnicos</h2>
+            <p class="section-subtitle">Los estrategas que forjaron la identidad, la lírica y los campeonatos de Huracán</p>
+          </div>
+          <div id="tecnicos-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- ================================================================
+             VISTA 4: PALMARÉS (13 TÍTULOS OFICIALES)
+             ================================================================ -->
+        <section id="view-palmares" class="view-section">
+          <div class="section-header">
+            <h2 class="section-title">Palmarés Oficial • 13 Estrellas</h2>
+            <p class="section-subtitle">5 Campeonatos de Primera División y 8 Copas Nacionales Oficiales de la AFA</p>
+          </div>
+
+          <!-- Pestañas de Filtrado -->
+          <div class="filter-bar">
+            <button class="filter-pill palmares-tab active" data-category="all">Todos los Títulos (13)</button>
+            <button class="filter-pill palmares-tab" data-category="ligas">Campeonatos de Primera División (5)</button>
+            <button class="filter-pill palmares-tab" data-category="copas">Copas Nacionales Oficiales (8)</button>
+          </div>
+
+          <div id="palmares-list-container" class="titles-grid"></div>
+        </section>
+
+        <!-- ================================================================
+             VISTA 5: PARTIDOS HISTÓRICOS
+             ================================================================ -->
+        <section id="view-partidos" class="view-section">
+          <div class="section-header">
+            <h2 class="section-title">Partidos Legendarios</h2>
+            <p class="section-subtitle">Finales consagradas, goleadas antológicas en el clásico y noches de emoción pura</p>
+          </div>
+          <div id="partidos-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        </section>
+
+        <!-- ================================================================
+             VISTA 6: RIVALES & CLÁSICOS
+             ================================================================ -->
+        <section id="view-rivales" class="view-section">
+          <div class="section-header">
+            <h2 class="section-title">Rivales & Historiales</h2>
+            <p class="section-subtitle">El Clásico de Barrio más Grande del Mundo vs San Lorenzo y los grandes del país</p>
+          </div>
+          <div id="rivales-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- ================================================================
+             VISTA 7: ESTADIOS & PATRIMONIO
+             ================================================================ -->
+        <section id="view-estadios" class="view-section">
+          <div class="section-header">
+            <h2 class="section-title">Estadios & Sedes</h2>
+            <p class="section-subtitle">"El Palacio" Tomás Adolfo Ducó, La Quemita y la histórica Sede Social de Av. Caseros</p>
+          </div>
+          <div id="estadios-list-container" class="grid grid-cols-1 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- ================================================================
+             VISTA 8: CAMISETAS HISTÓRICAS
+             ================================================================ -->
+        <section id="view-camisetas" class="view-section">
+          <div class="section-header">
+            <h2 class="section-title">Colección de Camisetas</h2>
+            <p class="section-subtitle">Evolución cronológica de la casaca blanca y roja desde 1908 hasta la actualidad</p>
+          </div>
+          <div id="camisetas-list-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        </section>
+
+        <!-- ================================================================
+             VISTA 9: MAPAMUNDI QUEMERO
+             ================================================================ -->
+        <section id="view-mapamundi" class="view-section">
+          <div class="section-header">
+            <h2 class="section-title">Mapamundi Quemero</h2>
+            <p class="section-subtitle">Giras europeas, hazañas de Copa Libertadores, Copa Sudamericana y filiales por el mundo</p>
+          </div>
+          <div id="mapamundi-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- ================================================================
+             VISTA 10: TRIVIA QUEMERA INTERACTIVA
+             ================================================================ -->
+        <section id="view-trivia" class="view-section">
+          <div class="section-header text-center max-w-xl mx-auto mb-8">
+            <h2 class="section-title justify-center">Trivia Quemera</h2>
+            <p class="section-subtitle">¿Cuánto conoces sobre la historia, ídolos, clásicos y títulos del Globo? ¡Ponte a prueba!</p>
+          </div>
+          <div id="trivia-game-wrapper"></div>
+        </section>
+
+        <!-- ================================================================
+             VISTA 11: INSTITUCIÓN & ORÍGENES
+             ================================================================ -->
+        <section id="view-institucion" class="view-section">
+          <div class="section-header text-center max-w-2xl mx-auto mb-8">
+            <h2 class="section-title justify-center">Institución & Orígenes</h2>
+            <p class="section-subtitle">La gesta de 1908, el Ing. Jorge Newbery, el bautismo del Globo, La Quema y el Himno</p>
+          </div>
+          <div id="institucion-content-wrapper"></div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL UNIVERSAL REUTILIZABLE
+       ==================================================================== -->
+  <div id="universal-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeUniversalModal()" aria-label="Cerrar ventana">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <div id="modal-dynamic-content">
+        <!-- Inyección dinámica según ficha -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts de Datos y Lógica -->
+  <script>
+/**
+ * Base de Datos Histórica y Oficial del Club Atlético Huracán
+ * Museo Quemero - Archivo y Patrimonio Histórico
+ */
+
+const HURACAN_DB = {
+  info: {
+    nombre: "Club Atlético Huracán",
+    apodo: "El Globo, El Quemero",
+    fundacion: "1 de noviembre de 1908",
+    fundadores: "Ernesto Dell'Isola, Américo Stefanini, Hilario Germán Bianchi, entre otros",
+    inspiracion: "Ingeniero Jorge Newbery y su globo aerostático 'El Huracán'",
+    estadio: "Estadio Tomás Adolfo Ducó ('El Palacio')",
+    capacidad: 48314,
+    direccionSede: "Av. Caseros 3159, Parque Patricios, CABA",
+    direccionEstadio: "Av. Amancio Alcorta 2570, Parque Patricios, CABA",
+    colores: ["#E01E2B", "#FFFFFF"],
+    titulosOficialesTotal: 13,
+    campeonatosPrimera: 5,
+    copasNacionales: 8,
+    sociosHistoricos: "Más de 40.000 socios activos"
+  },
+
+  // Podio de máximos goleadores históricos
+  topGoleadores: [
+    { nombre: "Herminio Masantonio", goles: 254, partidos: 349, promedio: "0.73", periodo: "1931-1943 / 1945", id: "masantonio" },
+    { nombre: "Miguel Ángel Brindisi", goles: 171, partidos: 349, promedio: "0.49", periodo: "1967-1976 / 1979-1980", id: "brindisi" },
+    { nombre: "Emilio Baldonedo", goles: 165, partidos: 257, promedio: "0.64", periodo: "1935-1944", id: "baldonedo" },
+    { nombre: "Carlos Alberto Babington", goles: 130, partidos: 305, promedio: "0.43", periodo: "1969-1974 / 1979-1982", id: "babington" },
+    { nombre: "Ángel Chiesa", goles: 110, partidos: 188, promedio: "0.58", periodo: "1919-1930", id: "chiesa" },
+    { nombre: "René Orlando Houseman", goles: 109, partidos: 277, promedio: "0.39", periodo: "1973-1980", id: "houseman" },
+    { nombre: "Guillermo Stábile", goles: 104, partidos: 119, promedio: "0.87", periodo: "1920-1930", id: "stabile" },
+    { nombre: "Roque Avallay", goles: 72, partidos: 198, promedio: "0.36", periodo: "1972-1976 / 1980", id: "avallay" },
+    { nombre: "Norberto Méndez", goles: 68, partidos: 176, promedio: "0.39", periodo: "1940-1947 / 1956-1958", id: "mendez" },
+    { nombre: "Ramón 'Wanchope' Ábila", goles: 58, partidos: 119, promedio: "0.49", periodo: "2014-2017 / 2024-Act.", id: "abila" }
+  ],
+
+  // Podio de máximas presencias
+  topPresencias: [
+    { nombre: "Jorge Hugo Alberti", partidos: 393, goles: 19, periodo: "1930-1947", puesto: "Defensor Central", id: "alberti" },
+    { nombre: "Herminio Masantonio", partidos: 349, goles: 254, periodo: "1931-1945", puesto: "Centrodelantero", id: "masantonio" },
+    { nombre: "Miguel Ángel Brindisi", partidos: 349, goles: 171, periodo: "1967-1980", puesto: "Volante / Delantero", id: "brindisi" },
+    { nombre: "Carlos Alberto Babington", partidos: 305, goles: 130, periodo: "1969-1982", puesto: "Volante Ofensivo (10)", id: "babington" },
+    { nombre: "Jorge Carrascosa", partidos: 287, goles: 0, periodo: "1973-1979", puesto: "Lateral Izquierdo", id: "carrascosa" },
+    { nombre: "René Orlando Houseman", partidos: 277, goles: 109, periodo: "1973-1980", puesto: "Puntero Derecho", id: "houseman" },
+    { nombre: "Emilio Baldonedo", partidos: 257, goles: 165, periodo: "1935-1944", puesto: "Delantero", id: "baldonedo" },
+    { nombre: "Alberto Rendo", partidos: 245, goles: 26, periodo: "1959-1971", puesto: "Volante Central", id: "rendo" },
+    { nombre: "Daniel 'Rolfi' Montenegro", partidos: 236, goles: 44, periodo: "1997-2018 (4 etapas)", puesto: "Enganche / Mediapunta", id: "montenegro" },
+    { nombre: "Alfio 'Coco' Basile", partidos: 212, goles: 12, periodo: "1971-1975", puesto: "Defensor Central", id: "basile" }
+  ],
+
+  // Jugadores históricos completos
+  jugadores: [
+    {
+      id: "masantonio",
+      nombre: "Herminio Masantonio",
+      apodo: "Masa / El Mortero de Parque Patricios",
+      posicion: "Centrodelantero",
+      linea: "Delantero",
+      periodo: "1931 - 1943 / 1945",
+      decada: "1930s",
+      partidos: 349,
+      goles: 254,
+      promedio: "0.73",
+      titulos: ["Copa Adrián Escobar 1942", "Copa Adrián Escobar 1943"],
+      nacimiento: "5 de agosto de 1910, Ensenada",
+      fallecimiento: "11 de septiembre de 1960 (50 años)",
+      descripcion: "El máximo goleador de toda la historia de Huracán y tercer máximo artillero del fútbol argentino profesional (256 goles). Dueño de un cañón en su pierna derecha y de un coraje indomable, encarna como nadie el espíritu del barrio de Parque Patricios. Es símbolo absoluto del club y tiene su monumento en la sede social.",
+      hitos: [
+        "254 goles oficiales con el Globo.",
+        "Autor del gol más rápido en la historia de la Selección Argentina (a los 23 segundos vs Uruguay en 1935).",
+        "Máximo goleador de la Copa América 1935 y 1942.",
+        "Le marcó 19 goles a San Lorenzo en el clásico de barrio."
+      ],
+      imagen: "masantonio"
+    },
+    {
+      id: "houseman",
+      nombre: "René Orlando Houseman",
+      apodo: "El Hueso / El Loco",
+      posicion: "Puntero Derecho",
+      linea: "Delantero",
+      periodo: "1973 - 1980",
+      decada: "1970s",
+      partidos: 277,
+      goles: 109,
+      promedio: "0.39",
+      titulos: ["Campeonato Metropolitano 1973", "Copa del Mundo FIFA 1978 (Selección Argentina)"],
+      nacimiento: "19 de julio de 1953, La Banda, Santiago del Estero",
+      fallecimiento: "22 de marzo de 2018 (64 años)",
+      descripcion: "Uno de los extremos más desequilibrantes, impredecibles y geniales que pisaron una cancha de fútbol en el planeta. Llegó a Huracán en 1973 desde Defensores de Belgrano de la mano de Menotti y deslumbró al mundo entero con su gambeta en una baldosa y picardía de potrero puro.",
+      hitos: [
+        "Figura estelar del inolvidable Huracán Campeón 1973.",
+        "Campeón del Mundo con la Selección Argentina en 1978.",
+        "Anotó 4 goles en dos Copas del Mundo (1974 y 1978).",
+        "Ídolo entrañable de Parque Patricios, querido por hinchas de todos los clubes."
+      ],
+      imagen: "houseman"
+    },
+    {
+      id: "brindisi",
+      nombre: "Miguel Ángel Brindisi",
+      apodo: "Miguelito",
+      posicion: "Volante Ofensivo / Delantero",
+      linea: "Mediocampista",
+      periodo: "1967 - 1976 / 1979 - 1980",
+      decada: "1970s",
+      partidos: 349,
+      goles: 171,
+      promedio: "0.49",
+      titulos: ["Campeonato Metropolitano 1973"],
+      nacimiento: "8 de octubre de 1950, Buenos Aires",
+      fallecimiento: null,
+      descripcion: "Cerebro, panorama, pegada magistral y una llegada al gol insuperable. Segundo máximo artillero en la historia del club. Formado en las divisiones inferiores del Globo, fue el capitán y la bandera del equipo de Menotti en 1973. Considerado uno de los mejores futbolistas argentinos de la década del 70.",
+      hitos: [
+        "171 goles con la camiseta de Huracán en 349 encuentros.",
+        "Balón de Plata de Sudamérica en 1973 detrás de Pelé.",
+        "Capitán y motor del Campeón Metropolitano 1973.",
+        "Mundialista con la Selección Argentina en Alemania 1974."
+      ],
+      imagen: "brindisi"
+    },
+    {
+      id: "babington",
+      nombre: "Carlos Alberto Babington",
+      apodo: "El Inglés",
+      posicion: "Enganche / Número 10",
+      linea: "Mediocampista",
+      periodo: "1969 - 1974 / 1979 - 1982",
+      decada: "1970s",
+      partidos: 305,
+      goles: 130,
+      promedio: "0.43",
+      titulos: ["Campeonato Metropolitano 1973 (Jugador)", "Nacional B 1989-90 (DT)", "Nacional B 1999-00 (DT)"],
+      nacimiento: "20 de septiembre de 1949, Buenos Aires",
+      fallecimiento: null,
+      descripcion: "Zurda exquisita, elegancia aristocrática para conducir y pegada demoledora de media distancia. Su sociedad futbolística con Brindisi y Houseman en el 73 elevó el fútbol a la categoría de arte lírico. Es una de las personalidades más influyentes de la historia quemera: campeón como jugador, como DT y presidente.",
+      hitos: [
+        "130 goles marcados con la zurda más prodigiosa del Ducó.",
+        "Figura clave en el Mundial 1974 con la Selección Argentina.",
+        "Ascendió a Huracán como Director Técnico en 1990 y 2000.",
+        "Marcó goles olímpicos y tiros libres inolvidables."
+      ],
+      imagen: "babington"
+    },
+    {
+      id: "alberti",
+      nombre: "Jorge Hugo Alberti",
+      apodo: "El Gran Capitán",
+      posicion: "Defensor Central",
+      linea: "Defensor",
+      periodo: "1930 - 1947",
+      decada: "1930s",
+      partidos: 393,
+      goles: 19,
+      promedio: "0.05",
+      titulos: ["Copa Adrián Escobar 1942", "Copa Adrián Escobar 1943", "Copa Competencia Británica 1944"],
+      nacimiento: "18 de mayo de 1912, Buenos Aires",
+      fallecimiento: "1985",
+      descripcion: "El hombre récord del Club Atlético Huracán. Vistió la camiseta del Globo durante 17 temporadas consecutivas, acumulando 393 partidos oficiales. Zaguero recio, elegante en la marca, caballero del deporte y símbolo de fidelidad eterna a una sola divisa.",
+      hitos: [
+        "Récord absoluto de partidos jugados en la historia de Huracán (393).",
+        "Capitán indiscutido durante más de una década.",
+        "Campeón de 3 Copas Nacionales de AFA en los años 40.",
+        "Titular en la Selección Argentina campeona de América en 1937 y 1941."
+      ],
+      imagen: "alberti"
+    },
+    {
+      id: "baldonedo",
+      nombre: "Emilio Baldonedo",
+      apodo: "El Mocho",
+      posicion: "Delantero / Entreala",
+      linea: "Delantero",
+      periodo: "1935 - 1944",
+      decada: "1930s",
+      partidos: 257,
+      goles: 165,
+      promedio: "0.64",
+      titulos: ["Copa Adrián Escobar 1942", "Copa Adrián Escobar 1943", "Copa Competencia Británica 1944"],
+      nacimiento: "23 de junio de 1916, Buenos Aires",
+      fallecimiento: "31 de mayo de 1999 (82 años)",
+      descripcion: "El segundo máximo goleador de la era profesional de Huracán. Formó junto a Herminio Masantonio una de las duplas ofensivas más temibles que recuerde la historia del fútbol sudamericano. Poseía una velocidad electrizante, gambeta corta y definición implacable.",
+      hitos: [
+        "165 goles en 257 partidos oficiales.",
+        "Máximo verdugo de San Lorenzo en clásicos con 14 goles convertidos.",
+        "Campeón del Sudamericano 1941 con la Selección Argentina (marcó 6 goles en ese torneo)."
+      ],
+      imagen: "baldonedo"
+    },
+    {
+      id: "stabile",
+      nombre: "Guillermo Stábile",
+      apodo: "El Filtrador",
+      posicion: "Centrodelantero",
+      linea: "Delantero",
+      periodo: "1920 - 1930",
+      decada: "1920s",
+      partidos: 119,
+      goles: 104,
+      promedio: "0.87",
+      titulos: ["Campeonato de Primera División 1925", "Campeonato de Primera División 1928", "Copa Ibarguren 1925"],
+      nacimiento: "17 de enero de 1905, Parque Patricios, Buenos Aires",
+      fallecimiento: "27 de diciembre de 1966 (61 años)",
+      descripcion: "Pionero legendario, surgido del semillero de Parque Patricios. Conocido como 'El Filtrador' por su capacidad de escabullirse entre las defensas gracias a su pique corto demoledor. Fue el goleador del primer Mundial de la historia (Uruguay 1930) y luego el DT más ganador de la historia de la Selección Argentina (6 Copas América).",
+      hitos: [
+        "Promedio de 0.87 goles por partido en Huracán.",
+        "Bicampeón de Primera División (1925 y 1928).",
+        "Primer goleador de la historia de los Mundiales FIFA (8 goles en 4 partidos en 1930).",
+        "Uno de los primeros futbolistas argentinos transferidos al fútbol europeo (Genoa y Napoli)."
+      ],
+      imagen: "stabile"
+    },
+    {
+      id: "mendez",
+      nombre: "Norberto Doroteo Méndez",
+      apodo: "Tucho",
+      posicion: "Entreala Derecho",
+      linea: "Mediocampista",
+      periodo: "1940 - 1947 / 1956 - 1958",
+      decada: "1940s",
+      partidos: 176,
+      goles: 68,
+      promedio: "0.39",
+      titulos: ["Copa Adrián Escobar 1942", "Copa Adrián Escobar 1943", "Copa Competencia Británica 1944"],
+      nacimiento: "5 de enero de 1923, Parque Patricios, Buenos Aires",
+      fallecimiento: "22 de junio de 1998 (75 años)",
+      descripcion: "El ídolo más porteño y bohemio que vistió la blanca de Huracán. Creció en la esquina de Caseros y La Rioja. Amante del tango y el arrabal, en la cancha era puro firulete, visión de juego y pegada precisa. Con la Selección Argentina ostenta el récord histórico compartido de ser el máximo artillero de toda la historia de la Copa América (17 goles).",
+      hitos: [
+        "Tricampeón consecutivo de Copa América con Argentina (1945, 1946 y 1947).",
+        "Máximo goleador histórico de la Copa América con 17 tantos (junto a Zizinho).",
+        "Ganó 3 copas nacionales oficiales con Huracán.",
+        "La tribuna popular local del Palacio Ducó lleva su nombre: 'Tribuna Norberto Tucho Méndez'."
+      ],
+      imagen: "mendez"
+    },
+    {
+      id: "carrascosa",
+      nombre: "Jorge Carrascosa",
+      apodo: "El Lobo",
+      posicion: "Lateral Izquierdo",
+      linea: "Defensor",
+      periodo: "1973 - 1979",
+      decada: "1970s",
+      partidos: 287,
+      goles: 0,
+      promedio: "0.00",
+      titulos: ["Campeonato Metropolitano 1973"],
+      nacimiento: "15 de agosto de 1948, Valentín Alsina",
+      fallecimiento: null,
+      descripcion: "El gran capitán moral del fútbol argentino. Lateral izquierdo impecable en la marca y con proyección limpia. Fue el capitán del Huracán del 73 y capitán de la Selección Argentina de Menotti hasta 1977. Admirado por su juego pulcro y por sus principios éticos inquebrantables.",
+      hitos: [
+        "Capitán y emblema del Huracán Campeón Metropolitano 1973.",
+        "287 partidos disputados en la época más dorada del club.",
+        "Disputó el Mundial de Alemania 1974 como titular indiscutido."
+      ],
+      imagen: "carrascosa"
+    },
+    {
+      id: "basile",
+      nombre: "Alfio Basile",
+      apodo: "Coco",
+      posicion: "Zaguero Central",
+      linea: "Defensor",
+      periodo: "1971 - 1975",
+      decada: "1970s",
+      partidos: 212,
+      goles: 12,
+      promedio: "0.06",
+      titulos: ["Campeonato Metropolitano 1973"],
+      nacimiento: "1 de noviembre de 1943, Bahía Blanca",
+      fallecimiento: null,
+      descripcion: "Voz de mando, presencia intimidante, cabezazo implacable y una salida limpia desde el fondo. Llegó a Huracán para convertirse en el caudillo de la defensa que soñó Menotti. Su liderazgo fue fundamental para sostener a un equipo eminentemente ofensivo.",
+      hitos: [
+        "Pilar defensivo y referente indiscutido del campeón 1973.",
+        "Compartió cumpleaños con la fecha de fundación del club (1 de noviembre).",
+        "Anotó goles decisivos de cabeza en partidos clave del 73."
+      ],
+      imagen: "basile"
+    },
+    {
+      id: "marcosdiaz",
+      nombre: "Marcos Díaz",
+      apodo: "El Rey de los Penales",
+      posicion: "Arquero",
+      linea: "Arquero",
+      periodo: "2013 - 2018 / 2021 - 2022",
+      decada: "2010s",
+      partidos: 182,
+      goles: 0,
+      promedio: "0.00",
+      titulos: ["Copa Argentina 2013-14", "Supercopa Argentina 2014"],
+      nacimiento: "5 de febrero de 1986, Santa Fe",
+      fallecimiento: null,
+      descripcion: "El arquero que se transformó en gigante legendario bajo los tres palos quemeros. Artífice supremo de la conquista de la Copa Argentina 2014 atajando penales milagrosos ante Banfield, Estudiantes, Atlético de Rafaela y en la final ante Rosario Central. También fue figura descomunal en la Supercopa 2014 ganada a River Plate en San Juan y en la Copa Sudamericana 2015.",
+      hitos: [
+        "Atajó 8 penales en definiciones directas de Copa Argentina 2013-14.",
+        "Héroe con valla invicta en la Supercopa 2014 ante River Plate (1-0).",
+        "Pieza clave del ascenso a Primera División en diciembre de 2014.",
+        "Finalista de la Copa Sudamericana 2015."
+      ],
+      imagen: "marcosdiaz"
+    },
+    {
+      id: "abila",
+      nombre: "Ramón Darío Ábila",
+      apodo: "Wanchope",
+      posicion: "Centrodelantero",
+      linea: "Delantero",
+      periodo: "2014 - 2017 / 2024 - Act.",
+      decada: "2010s",
+      partidos: 125,
+      goles: 61,
+      promedio: "0.49",
+      titulos: ["Copa Argentina 2013-14", "Supercopa Argentina 2014"],
+      nacimiento: "14 de octubre de 1989, Córdoba",
+      fallecimiento: null,
+      descripcion: "Goleador voraz, pícaro, potente y querido por todo el pueblo quemero. Llegó desde Instituto y a fuerza de goles espectaculares (rabonas, sombreritos, bombazos) llevó a Huracán a ganar la Copa Argentina, la Supercopa, volver a Primera y llegar a la final de la Copa Sudamericana 2015 siendo el goleador del certamen.",
+      hitos: [
+        "Máximo goleador de la Copa Sudamericana 2015 con 5 tantos.",
+        "Anotó el gol que selló el ascenso a Primera en 2014 vs Atlético Tucumán.",
+        "Más de 60 goles oficiales con la banda quemera.",
+        "Regresó al club en 2024 ovacionado por la hinchada."
+      ],
+      imagen: "abila"
+    },
+    {
+      id: "pastore",
+      nombre: "Javier Matías Pastore",
+      apodo: "El Flaco",
+      posicion: "Enganche / Mediapunta",
+      linea: "Mediocampista",
+      periodo: "2008 - 2009",
+      decada: "2000s",
+      partidos: 32,
+      goles: 8,
+      promedio: "0.25",
+      titulos: ["Subcampeón Torneo Clausura 2009"],
+      nacimiento: "20 de junio de 1989, Córdoba",
+      fallecimiento: null,
+      descripcion: "La joya exquisita del recordado equipo de Ángel Cappa en el Torneo Clausura 2009. Su tranco largo, elegancia para conducir con la cabeza levantada, tacos y goles deslumbrantes hicieron que el país entero se enamorara de aquel Huracán del 'Tiki-Tiki'. Fue transferido directamente al Palermo de Italia y luego al PSG.",
+      hitos: [
+        "Figura descollante del Clausura 2009 con golazos a River, Racing y Lanús.",
+        "Ovacionado de pie en estadios visitantes.",
+        "Mundialista con la Selección Argentina de Maradona en Sudáfrica 2010."
+      ],
+      imagen: "pastore"
+    },
+    {
+      id: "montenegro",
+      nombre: "Daniel Gastón Montenegro",
+      apodo: "Rolfi",
+      posicion: "Enganche / Delantero",
+      linea: "Mediocampista",
+      periodo: "1997-1999 / 2002 / 2015-2018",
+      decada: "2010s",
+      partidos: 236,
+      goles: 44,
+      promedio: "0.19",
+      titulos: ["Campeón Supercopa Argentina 2014 (integró plantel)", "Finalista Copa Sudamericana 2015"],
+      nacimiento: "28 de marzo de 1979, Buenos Aires",
+      fallecimiento: null,
+      descripcion: "Formado en la cantera quemera, debutó en 1997 con una técnica privilegiada y pegada magistral de tiro libre. Volvió en múltiples etapas para ayudar al club en momentos difíciles y cerró su carrera profesional vistiendo la camiseta de Huracán en 2018 con una inolvidable ovación en el Palacio Ducó.",
+      hitos: [
+        "236 partidos en 4 ciclos diferentes con el Globo.",
+        "Líder del equipo finalista de la Copa Sudamericana 2015.",
+        "Marcó más de 40 goles, muchos de ellos golazos memorables."
+      ],
+      imagen: "montenegro"
+    },
+    {
+      id: "toranzo",
+      nombre: "Patricio Daniel Toranzo",
+      apodo: "El Pato",
+      posicion: "Volante Creativo",
+      linea: "Mediocampista",
+      periodo: "2007-2010 / 2014-2019 / 2021-2022",
+      decada: "2010s",
+      partidos: 198,
+      goles: 20,
+      promedio: "0.10",
+      titulos: ["Copa Argentina 2013-14", "Supercopa Argentina 2014"],
+      nacimiento: "19 de marzo de 1982, Buenos Aires",
+      fallecimiento: null,
+      descripcion: "Talento, pegada milimétrica y un ejemplo de amor incondicional por la camiseta de Huracán. Fue figura en el 'Tiki-Tiki' de 2009 y regresó para ser campeón de la Copa Argentina y la Supercopa 2014. Superó el gravísimo accidente del micro en Venezuela en 2016 con coraje sobrehumano para volver a pisar las canchas con la camiseta del Globo.",
+      hitos: [
+        "Bicampeón de copas nacionales con Huracán en 2014.",
+        "Símbolo del fútbol lírico y la entrega.",
+        "Emotivo retiro profesional en el club de sus amores."
+      ],
+      imagen: "toranzo"
+    },
+    {
+      id: "mohamed",
+      nombre: "Antonio Ricardo Mohamed",
+      apodo: "El Turco",
+      posicion: "Delantero",
+      linea: "Delantero",
+      periodo: "1987 - 1991 (Jugador) / 2005 - 2007 (DT)",
+      decada: "1990s",
+      partidos: 112,
+      goles: 42,
+      promedio: "0.38",
+      titulos: ["Nacional B 1989-90 (Jugador)", "Ascenso a Primera 2007 (DT)"],
+      nacimiento: "2 de abril de 1970, Buenos Aires",
+      fallecimiento: null,
+      descripcion: "Hincha fanático criado en Parque Patricios que cumplió el sueño de jugar, hacer goles decisivos y devolver al club a la Primera División tanto como futbolista (con aquel recordado gol a Los Andes en 1990) como en su rol de Director Técnico en 2007 en una noche de fiesta inolvidable en Mendoza.",
+      hitos: [
+        "Autor de 42 goles con el Globo.",
+        "Campeón del Nacional B 1989-90 como jugador insignia.",
+        "DT del recordado ascenso a Primera División en 2007.",
+        "Ícono del amor popular quemero."
+      ],
+      imagen: "mohamed"
+    },
+    {
+      id: "onzari",
+      nombre: "Cesáreo Onzari",
+      apodo: "El Inventor del Gol Olímpico",
+      posicion: "Puntero Izquierdo",
+      linea: "Delantero",
+      periodo: "1921 - 1933",
+      decada: "1920s",
+      partidos: 212,
+      goles: 67,
+      promedio: "0.32",
+      titulos: ["Campeonato 1921", "Campeonato 1922", "Campeonato 1925", "Campeonato 1928", "Copa Ibarguren 1922", "Copa Ibarguren 1925"],
+      nacimiento: "1 de febrero de 1903, Buenos Aires",
+      fallecimiento: "6 de enero de 1964 (60 años)",
+      descripcion: "Extremo izquierdo legendario de la época dorada amateur de Huracán, donde ganó cuatro títulos de liga y dos copas nacionales. Pasó a la eternidad del fútbol mundial el 2 de octubre de 1924 cuando, vistiendo la camiseta de la Selección Argentina ante el flamante campeón olímpico Uruguay, convirtió el primer gol de córner directo validado en la historia del fútbol, bautizado desde entonces para siempre como 'Gol Olímpico'.",
+      hitos: [
+        "Tetracampeón de Primera División con Huracán (1921, 1922, 1925, 1928).",
+        "Autor del primer 'Gol Olímpico' de la historia del fútbol mundial.",
+        "Símbolo indiscutido del semillero del Globo."
+      ],
+      imagen: "onzari"
+    },
+    {
+      id: "chiesa",
+      nombre: "Ángel Chiesa",
+      apodo: "El Romperedes del 20",
+      posicion: "Delantero",
+      linea: "Delantero",
+      periodo: "1919 - 1930",
+      decada: "1920s",
+      partidos: 188,
+      goles: 110,
+      promedio: "0.58",
+      titulos: ["Campeonato 1921", "Campeonato 1922", "Campeonato 1925", "Campeonato 1928", "Copa Ibarguren 1922", "Copa Ibarguren 1925"],
+      nacimiento: "24 de febrero de 1900, Buenos Aires",
+      fallecimiento: "15 de octubre de 1961 (61 años)",
+      descripcion: "El gran goleador del Huracán de la década de 1920. Quinto máximo artillero histórico de la institución con 110 conquistas. Fue baluarte ofensivo en los cuatro títulos de liga de la era amateur.",
+      hitos: [
+        "110 goles oficiales con el Globo.",
+        "Ganador de 6 títulos oficiales con Huracán.",
+        "Campeón de la Copa América 1925 con la Selección Argentina."
+      ],
+      imagen: "chiesa"
+    },
+    {
+      id: "pussetto",
+      nombre: "Ignacio Pussetto",
+      apodo: "Nacho",
+      posicion: "Extremo / Delantero",
+      linea: "Delantero",
+      periodo: "2016-2018 / 2023-2024",
+      decada: "2020s",
+      partidos: 82,
+      goles: 25,
+      promedio: "0.30",
+      titulos: ["Clasificación a Copa Libertadores 2019"],
+      nacimiento: "21 de diciembre de 1995, Cañada Rosquín, Santa Fe",
+      fallecimiento: null,
+      descripcion: "Delantero veloz y con jerarquía europea. En su segunda etapa en 2023 regresó por puro amor al club en un momento límite, liderando al equipo como capitán para salvar la categoría y llevar a Huracán a los primeros puestos de la Liga Profesional con goles decisivos.",
+      hitos: [
+        "Capitán y goleador del equipo en la salvación histórica de 2023.",
+        "Goleador del Torneo de la Liga 2024 antes de su partida.",
+        "Goles inolvidables en clásicos y noches coperas en el Ducó."
+      ],
+      imagen: "pussetto"
+    }
+  ],
+
+  // Directores Técnicos
+  tecnicos: [
+    {
+      id: "menotti",
+      nombre: "César Luis Menotti",
+      apodo: "El Flaco",
+      periodo: "1971 - 1974",
+      partidos: 162,
+      efectividad: "66%",
+      titulos: ["Campeonato Metropolitano 1973"],
+      descripcion: "Revolucionó para siempre el fútbol argentino con el Huracán de 1973. Propuso un fútbol de toque, estética, generosidad ofensiva y convicciones innegociables. Con Babington, Brindisi, Houseman, Basile y Carrascosa, construyó una de las obras de arte más perfectas del deporte mundial, que le abrió las puertas para ser el DT de la Selección Argentina campeona del mundo en 1978.",
+      frase: "'Aquel Huracán jugaba para la gente. Si la pelota no la acariciás, la pelota llora.'"
+    },
+    {
+      id: "cappa",
+      nombre: "Ángel Cappa",
+      apodo: "El Filósofo del Tiki-Tiki",
+      periodo: "2008 - 2009",
+      partidos: 44,
+      efectividad: "54%",
+      titulos: ["Subcampeón Torneo Clausura 2009"],
+      descripcion: "Comandó el equipo que conmovió los corazones de los amantes del buen juego en 2009. 'Los Ángeles de Cappa' desplegaron una sinfonía de fútbol con Pastore, Bolatti, Defederico, Toranzo y Arano que goleó y brilló hasta la polémica última fecha en Liniers.",
+      frase: "'Huracán demostró que se puede emocionar al hincha a través de la belleza y el pase al compañero.'"
+    },
+    {
+      id: "kudelka",
+      nombre: "Frank Darío Kudelka",
+      apodo: "Frank",
+      periodo: "2013 - 2014 / 2021 - 2022 / 2024 - Act.",
+      partidos: 110,
+      efectividad: "56%",
+      titulos: ["Copa Argentina 2013-14 (campaña completa hasta cuartos/semis)"],
+      descripcion: "Artífice del rearmado institucional y deportivo de Huracán en 2014, construyendo las bases del equipo que conquistaría la Copa Argentina y el anhelado regreso a la máxima categoría. En 2024 regresó para colocar al Globo en los primeros planos del campeonato.",
+      frase: "'Huracán es un gigante dormido que siempre está listo para rugir.'"
+    },
+    {
+      id: "apuzzo",
+      nombre: "Néstor Apuzzo",
+      apodo: "El Bombero de Parque Patricios",
+      periodo: "Interinatos históricos (2011, 2012, 2014-2015, 2019)",
+      partidos: 68,
+      efectividad: "60%",
+      titulos: ["Copa Argentina 2013-14", "Supercopa Argentina 2014", "Ascenso a Primera 2014"],
+      descripcion: "Hombre de la casa, formador incansable de inferiores y técnico que asumió en momentos decisivos para llevar al club a la gloria eterna. Dirigió la semifinal y final de la Copa Argentina 2014, el partido desempate por el ascenso ante Atlético Tucumán y la histórica final de la Supercopa ante River Plate.",
+      frase: "'A Huracán no se le dice que no. Huracán es mi vida.'"
+    },
+    {
+      id: "stabile_dt",
+      nombre: "Guillermo Stábile",
+      apodo: "El Maestro",
+      periodo: "1940 - 1949",
+      partidos: 240,
+      efectividad: "59%",
+      titulos: ["Copa Adrián Escobar 1942", "Copa Adrián Escobar 1943", "Copa Competencia Británica 1944"],
+      descripcion: "Tras su inolvidable etapa como artillero, dirigió al primer equipo durante casi toda la década de 1940, ganando tres copas nacionales oficiales de AFA y forjando la temible delantera con Baldonedo, Masantonio y Tucho Méndez.",
+      frase: "'El jugador de Huracán tiene que saber que lleva en el pecho el globo de la valentía.'"
+    }
+  ],
+
+  // Palmarés Oficial Completo (13 títulos oficiales)
+  palmares: [
+    {
+      id: "tit-1921",
+      anio: 1921,
+      tipo: "Campeonato de Primera División",
+      asociacion: "Asociación Argentina de Football",
+      categoria: "Liga Nacional",
+      partidos: 18,
+      puntos: 31,
+      detalle: "Primer título de liga en la historia del club. Huracán dominó el torneo ganando 14 partidos y empatando 3 en 18 fechas disputadas.",
+      figuras: "Ángel Chiesa, Cesáreo Onzari, Ramón Vázquez, Ernesto Celli.",
+      dt: "Subcomisión de Fútbol",
+      golesFavor: 54,
+      golesContra: 15
+    },
+    {
+      id: "tit-1922",
+      anio: 1922,
+      tipo: "Campeonato de Primera División",
+      asociacion: "Asociación Argentina de Football",
+      categoria: "Liga Nacional",
+      partidos: 16,
+      puntos: 28,
+      detalle: "Bicampeonato de Primera División. El Globo refrendó su condición de rey de la categoría con un juego demoledor.",
+      figuras: "Ángel Chiesa, Cesáreo Onzari, Guillermo Stábile, Juan Pratto.",
+      dt: "Subcomisión de Fútbol",
+      golesFavor: 36,
+      golesContra: 7
+    },
+    {
+      id: "tit-1925",
+      anio: 1925,
+      tipo: "Campeonato de Primera División (Campeón Invicto)",
+      asociacion: "Asociación Argentina de Football",
+      categoria: "Liga Nacional",
+      partidos: 21,
+      puntos: 38,
+      detalle: "Tercera estrella de liga obtenida de manera invicta: 18 triunfos, 2 empates y cero derrotas.",
+      figuras: "Guillermo Stábile, Cesáreo Onzari, Ángel Chiesa, Mario Fortunato.",
+      dt: "Subcomisión de Fútbol",
+      golesFavor: 51,
+      golesContra: 12
+    },
+    {
+      id: "tit-1928",
+      anio: 1928,
+      tipo: "Campeonato de Primera División",
+      asociacion: "Asociación Amateurs Argentina de Football",
+      categoria: "Liga Nacional",
+      partidos: 35,
+      puntos: 58,
+      detalle: "Tetracampeonato de liga. Uno de los torneos más largos y exigentes de la historia: 35 fechas, 26 triunfos y 58 puntos.",
+      figuras: "Guillermo Stábile, Ángel Chiesa, Cesáreo Onzari, Alejandro de los Santos.",
+      dt: "Subcomisión de Fútbol",
+      golesFavor: 73,
+      golesContra: 29
+    },
+    {
+      id: "tit-1973",
+      anio: 1973,
+      tipo: "Torneo Metropolitano 1973",
+      asociacion: "Asociación del Fútbol Argentino (AFA)",
+      categoria: "Liga Nacional",
+      partidos: 32,
+      puntos: 46,
+      detalle: "El título más recordado del fútbol argentino profesional. El Huracán de César Luis Menotti deslumbró al país con fútbol lírico, goleadas antológicas y una mística imborrable. Se consagró campeón dos fechas antes del final con 62 goles a favor.",
+      figuras: "René Houseman, Miguel Ángel Brindisi, Carlos Babington, Jorge Carrascosa, Alfio Basile, Roque Avallay, Omar Larrosa, Héctor Roganti.",
+      dt: "César Luis Menotti",
+      golesFavor: 62,
+      golesContra: 30
+    },
+    {
+      id: "copa-1920",
+      anio: 1920,
+      tipo: "Copa Estímulo",
+      asociacion: "Asociación Argentina de Football",
+      categoria: "Copa Nacional",
+      partidos: 5,
+      puntos: 9,
+      detalle: "Primer título de Copa Nacional oficial de la historia del club, iniciando una década hegemónica.",
+      figuras: "Ángel Chiesa, José Laguna, Ginés Paternoster.",
+      dt: "Subcomisión de Fútbol",
+      golesFavor: 11,
+      golesContra: 4
+    },
+    {
+      id: "copa-1922",
+      anio: 1922,
+      tipo: "Copa Dr. Carlos Ibarguren",
+      asociacion: "AFA / Liga Rosarina",
+      categoria: "Copa Nacional",
+      partidos: 2,
+      puntos: 3,
+      detalle: "Finalísima nacional disputada ante Newell's Old Boys de Rosario. Empate 1-1 en la ida y triunfo quemero 1-0 en el desempate.",
+      figuras: "Ángel Chiesa, Cesáreo Onzari.",
+      dt: "Subcomisión de Fútbol",
+      golesFavor: 2,
+      golesContra: 1
+    },
+    {
+      id: "copa-1925",
+      anio: 1925,
+      tipo: "Copa Dr. Carlos Ibarguren",
+      asociacion: "AFA / Liga Rosarina",
+      categoria: "Copa Nacional",
+      partidos: 1,
+      puntos: 2,
+      detalle: "Final disputada en cancha de Boca Juniors ante Tiro Federal de Rosario con victoria 2-1.",
+      figuras: "Guillermo Stábile, Cesáreo Onzari.",
+      dt: "Subcomisión de Fútbol",
+      golesFavor: 2,
+      golesContra: 1
+    },
+    {
+      id: "copa-1942",
+      anio: 1942,
+      tipo: "Copa Adrián C. Escobar",
+      asociacion: "AFA",
+      categoria: "Copa Nacional",
+      partidos: 3,
+      puntos: 5,
+      detalle: "Torneo relámpago con los mejores equipos de Primera. Huracán se coronó tras vencer a Newell's y River Plate.",
+      figuras: "Herminio Masantonio, Emilio Baldonedo, Jorge Alberti.",
+      dt: "Guillermo Stábile",
+      golesFavor: 4,
+      golesContra: 1
+    },
+    {
+      id: "copa-1943",
+      anio: 1943,
+      tipo: "Copa Adrián C. Escobar",
+      asociacion: "AFA",
+      categoria: "Copa Nacional",
+      partidos: 3,
+      puntos: 5,
+      detalle: "Bicampeonato de la Copa Escobar. En la final igualó con Platense y se consagró por mayor cantidad de córners a favor según el reglamento de la época.",
+      figuras: "Emilio Baldonedo, Norberto Tucho Méndez, Jorge Alberti.",
+      dt: "Guillermo Stábile",
+      golesFavor: 3,
+      golesContra: 1
+    },
+    {
+      id: "copa-1944",
+      anio: 1944,
+      tipo: "Copa de Competencia Británica",
+      asociacion: "AFA",
+      categoria: "Copa Nacional",
+      partidos: 4,
+      puntos: 8,
+      detalle: "Una de las copas más prestigiosas del profesionalismo. Huracán goleó a Boca Juniors 4 a 2 en la gran final disputada en el Viejo Gasómetro.",
+      figuras: "Norberto Tucho Méndez, Emilio Baldonedo, Atilio Mellone, Jorge Alberti.",
+      dt: "Guillermo Stábile",
+      golesFavor: 14,
+      golesContra: 6
+    },
+    {
+      id: "copa-2014",
+      anio: 2014,
+      tipo: "Copa Argentina 2013-14",
+      asociacion: "AFA",
+      categoria: "Copa Nacional",
+      partidos: 6,
+      puntos: 12,
+      detalle: "Campañón inolvidable. Huracán eliminó a Crucero del Norte, Banfield, Estudiantes de La Plata, Atlético de Rafaela y venció a Rosario Central por penales (5-4) en el Estadio Bicentenario de San Juan con una noche heroica de Marcos Díaz.",
+      figuras: "Marcos Díaz, Ramón Ábila, Patricio Toranzo, Federico Mancinelli, Eduardo Domínguez, Gonzalo Martínez.",
+      dt: "Néstor Apuzzo (reemplazó a Frank Kudelka)",
+      golesFavor: 9,
+      golesContra: 3
+    },
+    {
+      id: "supercopa-2014",
+      anio: 2014,
+      tipo: "Supercopa Argentina 2014",
+      asociacion: "AFA",
+      categoria: "Copa Nacional",
+      partidos: 1,
+      puntos: 3,
+      detalle: "Disputada el 25 de abril de 2015 en el Estadio Bicentenario de San Juan ante el River Plate de Marcelo Gallardo (campeón de la Copa Sudamericana). Huracán ganó 1 a 0 con gol de Edson Puch tras asistencia de Patricio Toranzo y un partidazo defensivo.",
+      figuras: "Edson Puch, Marcos Díaz, Patricio Toranzo, Hugo Nervo, Luciano Balbi, Federico Vismara.",
+      dt: "Néstor Apuzzo",
+      golesFavor: 1,
+      golesContra: 0
+    }
+  ],
+
+  // Partidos históricos memorables
+  partidos: [
+    {
+      id: "part-1973-campeon",
+      fecha: "16 de septiembre de 1973",
+      torneo: "Torneo Metropolitano 1973",
+      estadio: "Estadio Tomás Adolfo Ducó",
+      rival: "Gimnasia y Esgrima La Plata",
+      resultado: "Huracán 1 - 2 Gimnasia LP (Consagración)",
+      resumen: "A pesar de la ajustada derrota ante el Lobo platense, el empate de Boca en su partido consagró a Huracán como Campeón Metropolitano 1973 dos fechas antes de la conclusión del torneo. El Palacio Ducó estalló en un festejo popular inolvidable, celebrando al equipo más lírico del fútbol nacional.",
+      alineacion: "Roganti; Chabay, Buglione, Basile, Carrascosa; Brindisi, Russo, Babington; Houseman, Avallay, Larrosa. DT: César Luis Menotti."
+    },
+    {
+      id: "part-2014-final-copa-arg",
+      fecha: "26 de noviembre de 2014",
+      torneo: "Final Copa Argentina 2013-14",
+      estadio: "Estadio Bicentenario, San Juan",
+      rival: "Rosario Central",
+      resultado: "Huracán 0 (5) - 0 (4) Rosario Central",
+      resumen: "Tras empatar 0-0 en los 90 minutos de una final durísima, la serie de penales coronó a Marcos Díaz como santo patrono de los penales: atajó dos disparos (a Caranta y Encina) y Federico Mancinelli convirtió el penal definitorio para cortar 41 años de sequía de títulos nacionales.",
+      alineacion: "Marcos Díaz; Federico Mancinelli, Rodrigo Erramuspe, Eduardo Domínguez, Carlos Arano; Lucas Villarruel, Federico Vismara, Patricio Toranzo; Gonzalo Martínez, Ramón Ábila, Cristian Espinoza. DT: Néstor Apuzzo."
+    },
+    {
+      id: "part-2015-supercopa",
+      fecha: "25 de abril de 2015",
+      torneo: "Supercopa Argentina 2014",
+      estadio: "Estadio Bicentenario, San Juan",
+      rival: "River Plate",
+      resultado: "Huracán 1 - 0 River Plate",
+      resumen: "El Globo dio el batacazo ante el River de Gallardo. A los 21 minutos del primer tiempo, Patricio Toranzo inició un contraataque punzante y habilitó al chileno Edson Puch, quien definió picando la pelota con clase sobre Marcelo Barovero.",
+      alineacion: "Marcos Díaz; Federico Mancinelli, Hugo Nervo, Eduardo Domínguez, Luciano Balbi; Lucas Villarruel, Federico Vismara, Patricio Toranzo; Edson Puch, Ramón Ábila, Cristian Espinoza. DT: Néstor Apuzzo."
+    },
+    {
+      id: "part-1944-clasico-5-1",
+      fecha: "13 de mayo de 1944",
+      torneo: "Campeonato Oficial de Primera División 1944",
+      estadio: "Viejo Gasómetro (cancha de San Lorenzo)",
+      rival: "San Lorenzo de Almagro",
+      resultado: "San Lorenzo 1 - 5 Huracán",
+      resumen: "Una de las mayores palizas de la historia del clásico de barrio más grande del mundo, y a domicilio. Huracán bailó a su eterno rival con goles de Masantonio, Baldonedo y un recital de fútbol.",
+      alineacion: "Barrionuevo; Alberti, Marinelli; Méndez, Giúdice, Sbarra; Unzué, Baldonedo, Masantonio, Guerra, Onzari."
+    },
+    {
+      id: "part-1973-clasico-4-2",
+      fecha: "9 de diciembre de 1973",
+      torneo: "Torneo Nacional 1973",
+      estadio: "Viejo Gasómetro",
+      rival: "San Lorenzo de Almagro",
+      resultado: "San Lorenzo 2 - 4 Huracán",
+      resumen: "Concierto del campeón en rodeo ajeno. Huracán liquidó a San Lorenzo con una exhibición fastuosa de René Houseman (anotó 2 goles monumentales), Brindisi y Babington.",
+      alineacion: "Roganti; Chabay, Basile, Buglione, Carrascosa; Brindisi, Russo, Babington; Houseman, Avallay, Larrosa. DT: Menotti."
+    },
+    {
+      id: "part-1924-gol-olimpico",
+      fecha: "2 de octubre de 1924",
+      torneo: "Amistoso Internacional de Selecciones",
+      estadio: "Sportivo Barracas",
+      rival: "Uruguay (Campeón Olímpico)",
+      resultado: "Argentina 2 - 1 Uruguay",
+      resumen: "Cesáreo Onzari, jugador de Huracán, ejecutó un córner desde la izquierda con efecto cerrado que entró directamente al arco de Andrés Mazali. Por haberse anotado ante los campeones olímpicos vigentes, la prensa popular lo bautizó para siempre 'Gol Olímpico'.",
+      alineacion: "Tesoriere; Bidoglio, Bearzotti; Médici, Vaccaro, Solari; Tarasconi, Celli, Gabino Sosa, Seoane, Cesáreo Onzari."
+    },
+    {
+      id: "part-2015-sudamericana-river",
+      fecha: "26 de noviembre de 2015",
+      torneo: "Semifinales Vuelta Copa Sudamericana 2015",
+      estadio: "Estadio Tomás Adolfo Ducó",
+      rival: "River Plate",
+      resultado: "Huracán 2 - 2 River Plate (Global: 3-2)",
+      resumen: "Tras haber ganado 1-0 en el Monumental con gol de Cristian Espinoza, Huracán llenó el Ducó y se puso 2-0 arriba con goles de Toranzo y Wanchope Ábila. Pese a la reacción de River, el empate 2-2 clasificó al Globo a su primera final internacional en la historia.",
+      alineacion: "Marcos Díaz; San Román, Nervo, Mancinelli, Balbi; Bogado, Vismara; Espinoza, Montenegro, Toranzo; Ramón Ábila. DT: Eduardo Domínguez."
+    }
+  ],
+
+  // Rivales e Historiales
+  rivales: [
+    {
+      id: "san-lorenzo",
+      nombre: "San Lorenzo de Almagro",
+      apodo: "El Ciclón / Cuervo",
+      tipo: "El Clásico de Barrio más Grande del Mundo",
+      descripcion: "El clásico porteño por excelencia: Parque Patricios contra Boedo. Una rivalidad centenaria cargada de poesía, tango, folklore y pasión vecinal única en el planeta fútbol.",
+      partidosJugados: 190,
+      victoriasHuracan: 47,
+      empates: 53,
+      victoriasRival: 87,
+      partidoMitico: "San Lorenzo 1 - Huracán 5 (1944) y Huracán 4 - San Lorenzo 2 (1973)",
+      maximoGoleadorQuemero: "Herminio Masantonio (19 goles) y Emilio Baldonedo (14 goles)",
+      escudoColor: "#002b66"
+    },
+    {
+      id: "boca-juniors",
+      nombre: "Boca Juniors",
+      apodo: "Xeneize",
+      tipo: "Clásico Nacional",
+      descripcion: "Duelos históricos desde los primeros años del amateurismo en la década de 1910 y 1920 disputando los campeonatos de Primera.",
+      partidosJugados: 178,
+      victoriasHuracan: 36,
+      empates: 52,
+      victoriasRival: 90,
+      partidoMitico: "Huracán 4 - Boca Juniors 2 (Final Copa Competencia Británica 1944)",
+      maximoGoleadorQuemero: "Herminio Masantonio (14 goles)",
+      escudoColor: "#001a9c"
+    },
+    {
+      id: "river-plate",
+      nombre: "River Plate",
+      apodo: "Millonario",
+      tipo: "Clásico Nacional",
+      descripcion: "Rivalidad cargada de definiciones coperas, incluyendo la consagración de la Supercopa 2014 y la semifinal de Copa Sudamericana 2015.",
+      partidosJugados: 169,
+      victoriasHuracan: 35,
+      empates: 51,
+      victoriasRival: 83,
+      partidoMitico: "Huracán 1 - River 0 (Supercopa 2014) y Huracán 2 - River 2 (Sudamericana 2015)",
+      maximoGoleadorQuemero: "Herminio Masantonio (13 goles)",
+      escudoColor: "#c91d24"
+    },
+    {
+      id: "racing-club",
+      nombre: "Racing Club",
+      apodo: "La Academia",
+      tipo: "Clásico de Grandeza",
+      descripcion: "Grandes batallas entre dos de los clubes con mayor historia de campeonatos en las primeras décadas del fútbol argentino.",
+      partidosJugados: 160,
+      victoriasHuracan: 38,
+      empates: 44,
+      victoriasRival: 78,
+      partidoMitico: "Huracán 5 - Racing 0 (Campeonato 1973 con hat-trick de Babington)",
+      maximoGoleadorQuemero: "Carlos Babington y Herminio Masantonio",
+      escudoColor: "#6bbbeb"
+    },
+    {
+      id: "independiente",
+      nombre: "Independiente",
+      apodo: "El Rojo",
+      tipo: "Clásico Histórico",
+      descripcion: "Enfrentamientos inolvidables entre dos estilos de juego líricos y de respeto por la posesión de pelota.",
+      partidosJugados: 158,
+      victoriasHuracan: 46,
+      empates: 37,
+      victoriasRival: 75,
+      partidoMitico: "Huracán 1 - Independiente 0 (Metropolitano 1973 gol de Avallay)",
+      maximoGoleadorQuemero: "Herminio Masantonio y Miguel Ángel Brindisi",
+      escudoColor: "#e60000"
+    },
+    {
+      id: "velez-sarsfield",
+      nombre: "Vélez Sarsfield",
+      apodo: "El Fortín",
+      tipo: "Clásico Porteño",
+      descripcion: "Duelos cargados de intensidad con gran presencia barrial en la Ciudad de Buenos Aires.",
+      partidosJugados: 152,
+      victoriasHuracan: 53,
+      empates: 42,
+      victoriasRival: 57,
+      partidoMitico: "Huracán 3 - Vélez 1 (Metropolitano 1973)",
+      maximoGoleadorQuemero: "Herminio Masantonio",
+      escudoColor: "#003b8e"
+    }
+  ],
+
+  // Estadios y Sedes
+  estadios: [
+    {
+      id: "palacio-duco",
+      nombre: "Estadio Tomás Adolfo Ducó ('El Palacio')",
+      inauguracion: "7 de septiembre de 1947 (inauguración oficial de cemento: 10 de noviembre de 1949)",
+      capacidad: 48314,
+      ubicacion: "Av. Amancio Alcorta 2570, Parque Patricios, CABA",
+      arquitectura: "Estilo Racionalista y Art Déco, proyectado por los arquitectos Curutchet, Giraldez y Olivera. Destaca su imponente torre con el mástil y el globo aerostático.",
+      distincion: "Declarado Patrimonio Histórico y Cultural de la Ciudad de Buenos Aires y Monumento Histórico Nacional.",
+      tribunas: [
+        { nombre: "Tribuna Popular Norberto 'Tucho' Méndez", capacidad: "17.000", sector: "Local (Luna)" },
+        { nombre: "Tribuna Popular Colonia", capacidad: "14.000", sector: "Visitante / Neutral" },
+        { nombre: "Platea Miravé", capacidad: "8.500", sector: "Lateral este" },
+        { nombre: "Platea Alcorta / Oficial", capacidad: "8.800", sector: "Lateral oeste y palcos" }
+      ],
+      historia: "Reemplazó a la mítica cancha de madera de Chiclana y Alagón. El Teniente Coronel Tomás Adolfo Ducó fue el gran visionario y gestor que consiguió los terrenos y financiamiento para construir uno de los templos del fútbol más bellos del continente americano.",
+      imagen: "palacio_duco"
+    },
+    {
+      id: "la-quemita",
+      nombre: "Campo de Deportes 'Jorge Newbery' (La Quemita)",
+      inauguracion: "1989",
+      capacidad: "Centro de Alto Rendimiento y Entrenamiento",
+      ubicacion: "Av. Mariano Acosta 1981, Flores Sur / Bajo Flores",
+      arquitectura: "Predio polideportivo de más de 14 hectáreas con 10 canchas profesionales de fútbol, canchas de césped sintético, cancha de hockey sobre césped, vestuarios de primer nivel y concentración.",
+      distincion: "Cuna del semillero quemero y campo de entrenamiento diario del plantel profesional de fútbol masculino y femenino.",
+      imagen: "la_quemita"
+    },
+    {
+      id: "sede-social",
+      nombre: "Sede Social del Club Atlético Huracán",
+      inauguracion: "1940",
+      capacidad: "Centro Social, Cultural y Deportivo",
+      ubicacion: "Av. Caseros 3159, Parque Patricios, CABA",
+      arquitectura: "Edificio señorial de 4 plantas en el corazón de Caseros. Posee cancha de básquet y voley, natatorio cubierto climatizado, salón de fiestas, oficinas de atención al socio y gimnasio de boxeo.",
+      distincion: "Hogar de entrenamiento del inolvidable boxeador e hincha de Huracán Oscar 'Ringo' Bonavena.",
+      imagen: "sede_caseros"
+    }
+  ],
+
+  // Colección de Camisetas Históricas
+  camisetas: [
+    {
+      id: "cam-1908",
+      anio: 1908,
+      nombre: "La Fundacional (El Bautismo del Globo)",
+      marca: "Confección artesanal",
+      sponsor: "Sin publicidad",
+      descripcion: "Camiseta blanca pura de algodón pesado con cuello abotonado. Las hermanas y madres de los fundadores bordaron a mano el distintivo del globo aerostático rojo diseñado por Jorge Newbery en el corazón izquierdo.",
+      colores: "Blanco con globo rojo bordado",
+      titulos: "Fundación y primeros torneos barriales"
+    },
+    {
+      id: "cam-1925",
+      anio: 1925,
+      nombre: "La Tetracampeona Invicte",
+      marca: "Tejidos Porteños",
+      sponsor: "Sin publicidad",
+      descripcion: "Diseño clásico de la era dorada del amateurismo. Mangas largas con puños elastizados rojos, cuello polo cerrado con cordones y el globo en fieltro rojo intenso cosido al pecho.",
+      colores: "Blanco inmaculado con detalles rojos",
+      titulos: "Campeonato Primera División 1921, 1922, 1925 (Invicto) y 1928"
+    },
+    {
+      id: "cam-1973",
+      anio: 1973,
+      nombre: "La Mítica del Menotti 73",
+      marca: "Industria Nacional",
+      sponsor: "Sin publicidad",
+      descripcion: "La camiseta más hermosa y respetada de la historia del fútbol argentino. Blanca impecable, cuello en escote en V rojo vivo y el globo de Jorge Newbery grande en el centro del pecho. Vestida por Houseman, Brindisi y Babington.",
+      colores: "Blanco y Rojo Rubí",
+      titulos: "Campeonato Metropolitano 1973"
+    },
+    {
+      id: "cam-1980",
+      anio: 1980,
+      nombre: "Las Tres Tiras Quemeras",
+      marca: "Adidas",
+      sponsor: "Sin publicidad",
+      descripcion: "Primera casaca de una marca multinacional. Tres tiras rojas bajando por las mangas blancas, cuello de solapas rojas y el escudo tradicional.",
+      colores: "Blanco con tiras rojas",
+      titulos: "Grandes campañas en torneos Metropolitanos y Nacionales"
+    },
+    {
+      id: "cam-1990",
+      anio: 1990,
+      nombre: "La del Ascenso y el Medicus",
+      marca: "Puma",
+      sponsor: "Medicus",
+      descripcion: "Recordada por el inolvidable gol del Turco Mohamed a Los Andes para devolver al club a Primera. Cuello en V rojo con detalles geométricos noventosos característicos de la marca del felino.",
+      colores: "Blanco con vivos rojos y sponsor azul oscuro",
+      titulos: "Campeón Nacional B 1989-90"
+    },
+    {
+      id: "cam-2009",
+      anio: 2009,
+      nombre: "Los Ángeles de Cappa (Tiki-Tiki)",
+      marca: "Kappa",
+      sponsor: "Motomel",
+      descripcion: "La casaca de la revolución lírica de Javier Pastore, Defederico y Bolatti. Ajustada al cuerpo, con los omini de Kappa en los hombros y el globo en relieve sobre el pecho.",
+      colores: "Blanco con recortes rojos en costados",
+      titulos: "Subcampeón Torneo Clausura 2009"
+    },
+    {
+      id: "cam-2014",
+      anio: 2014,
+      nombre: "La de la Gloria de San Juan",
+      marca: "TBS",
+      sponsor: "Banco Ciudad",
+      descripcion: "La camiseta que cortó 41 años de espera. Con ella Marcos Díaz fue un muro infranqueable y Wanchope Ábila goleador letal para alzar la Copa Argentina y la Supercopa ante River.",
+      colores: "Blanco con cuello retro polo rojo",
+      titulos: "Campeón Copa Argentina 2013-14 y Supercopa Argentina 2014"
+    },
+    {
+      id: "cam-2024",
+      anio: 2024,
+      nombre: "El Manto Sagrado Contemporáneo",
+      marca: "Kappa",
+      sponsor: "Decrypto",
+      descripcion: "Diseño moderno con tecnología Kombat Pro. Incorpora una trama sutil inspirada en las líneas art-déco del Palacio Ducó y los vientos del globo aerostático.",
+      colores: "Blanco, rojo escarlata y detalles plateados",
+      titulos: "Pelea en los primeros puestos de la Liga Profesional"
+    }
+  ],
+
+  // Efemérides "Un día como hoy"
+  efemerides: [
+    {
+      mes: 9, // Septiembre
+      dia: 16,
+      titulo: "Huracán Campeón Metropolitano 1973",
+      tipo: "Titulo",
+      descripcion: "El Huracán de Menotti empata virtualmente en la cima y se corona matemáticamente Campeón Metropolitano de Primera División a dos fechas del final, haciendo vibrar al Palacio Ducó.",
+      icono: "trophy"
+    },
+    {
+      mes: 9, // Septiembre
+      dia: 17,
+      titulo: "El Ducó vibra tras la coronación de 1973",
+      tipo: "Hito",
+      descripcion: "La prensa internacional y de toda Sudamérica llena sus portadas elogiando la 'Revolución Lírica' del Club Atlético Huracán como el mejor fútbol del continente.",
+      icono: "star"
+    },
+    {
+      mes: 9, // Septiembre
+      dia: 20,
+      titulo: "Nacimiento de Carlos Alberto Babington",
+      tipo: "Cumpleanos",
+      descripcion: "Nace en 1949 en Buenos Aires 'El Inglés' Babington, una de las zurdas más virtuosas de la historia del fútbol, gloria como jugador del 73 y técnico bicampeón de ascensos.",
+      icono: "user"
+    },
+    {
+      mes: 9, // Septiembre
+      dia: 7,
+      titulo: "Inauguración de cemento del Estadio Tomás A. Ducó",
+      tipo: "Estadio",
+      descripcion: "En 1947, Huracán disputa su primer partido en el coloso de cemento de Amancio Alcorta derrotando a Boca Juniors por 4 a 3 ante más de 45.000 personas.",
+      icono: "home"
+    },
+    {
+      mes: 10, // Octubre
+      dia: 2,
+      titulo: "El Primer Gol Olímpico de la Historia (Cesáreo Onzari)",
+      tipo: "Hito",
+      descripcion: "En 1924, el delantero de Huracán Cesáreo Onzari convierte el primer gol directo de córner en la historia del fútbol jugando para Argentina contra Uruguay en cancha de Barracas.",
+      icono: "award"
+    },
+    {
+      mes: 10, // Octubre
+      dia: 8,
+      titulo: "Nacimiento de Miguel Ángel Brindisi",
+      tipo: "Cumpleanos",
+      descripcion: "Nace en 1950 uno de los máximos ídolos y goleadores históricos de Huracán (171 goles en 349 partidos), capitán del campeón Metropolitano 1973.",
+      icono: "user"
+    },
+    {
+      mes: 11, // Noviembre
+      dia: 1,
+      titulo: "Aniversario de Fundación del Club Atlético Huracán",
+      tipo: "Institucion",
+      descripcion: "En 1908 se funda formalmente en la calle Ventana 859 el Club Atlético Huracán, adoptando el globo aerostático del Ingeniero Jorge Newbery como su símbolo eterno.",
+      icono: "flag"
+    },
+    {
+      mes: 11, // Noviembre
+      dia: 26,
+      titulo: "Huracán Campeón de la Copa Argentina 2014",
+      tipo: "Titulo",
+      descripcion: "En San Juan, Huracán vence por penales a Rosario Central de la mano de Marcos Díaz y Mancinelli, cortando 41 años de espera y festejando una nueva estrella nacional.",
+      icono: "trophy"
+    },
+    {
+      mes: 4, // Abril
+      dia: 25,
+      titulo: "Huracán Campeón de la Supercopa Argentina 2014",
+      tipo: "Titulo",
+      descripcion: "Huracán derrota 1 a 0 a River Plate en San Juan con gol del chileno Edson Puch y la dirección técnica de Néstor Apuzzo, bordando su 13° estrella oficial.",
+      icono: "trophy"
+    },
+    {
+      mes: 7, // Julio
+      dia: 19,
+      titulo: "Nacimiento de René Orlando Houseman",
+      tipo: "Cumpleanos",
+      descripcion: "Nace en 1953 en La Banda 'El Hueso' Houseman, mago del regate, genio de potrero y Campeón del Mundo 1978.",
+      icono: "user"
+    },
+    {
+      mes: 8, // Agosto
+      dia: 5,
+      titulo: "Nacimiento de Herminio Masantonio",
+      tipo: "Cumpleanos",
+      descripcion: "Nace en 1910 en Ensenada el máximo goleador de Huracán de todos los tiempos (254 goles) y símbolo eterno de Parque Patricios.",
+      icono: "user"
+    },
+    {
+      mes: 1, // Enero
+      dia: 5,
+      titulo: "Nacimiento de Norberto 'Tucho' Méndez",
+      tipo: "Cumpleanos",
+      descripcion: "Nace en 1923 en Parque Patricios 'Tucho' Méndez, rey del firulete y máximo goleador histórico de la Copa América con la Selección Argentina.",
+      icono: "user"
+    },
+    {
+      mes: 1, // Enero
+      dia: 17,
+      titulo: "Nacimiento de Guillermo Stábile",
+      tipo: "Cumpleanos",
+      descripcion: "Nace en 1905 'El Filtrador' Stábile, bicampeón con Huracán y goleador del primer Mundial de fútbol en 1930.",
+      icono: "user"
+    }
+  ],
+
+  // Trivia Quemera Interactiva
+  trivia: [
+    {
+      id: 1,
+      pregunta: "¿Quién es el máximo goleador en la historia del Club Atlético Huracán?",
+      opciones: ["Miguel Ángel Brindisi", "Herminio Masantonio", "Emilio Baldonedo", "René Houseman"],
+      correcta: 1,
+      explicacion: "Herminio Masantonio anotó 254 goles oficiales con la camiseta de Huracán en 349 partidos jugados entre 1931 y 1945.",
+      dificultad: "Fácil"
+    },
+    {
+      id: 2,
+      pregunta: "¿Quién fue el director técnico del inolvidable Huracán Campeón Metropolitano 1973?",
+      opciones: ["Carlos Babington", "Ángel Cappa", "César Luis Menotti", "Guillermo Stábile"],
+      correcta: 2,
+      explicacion: "César Luis 'El Flaco' Menotti diseñó y dirigió al mítico Huracán del 73 que asombró al país por su belleza y vocación ofensiva.",
+      dificultad: "Fácil"
+    },
+    {
+      id: 3,
+      pregunta: "¿En qué año se fundó el Club Atlético Huracán?",
+      opciones: ["1905", "1908", "1912", "1901"],
+      correcta: 1,
+      explicacion: "Huracán fue fundado oficialmente el 1 de noviembre de 1908 en una reunión en la calle Ventana 859.",
+      dificultad: "Fácil"
+    },
+    {
+      id: 4,
+      pregunta: "¿Qué aviador e ingeniero argentino autorizó el uso de su globo aerostático como distintivo del club?",
+      opciones: ["Teodoro Fels", "Jorge Newbery", "Pablo Carballo", "Vicente Almandos Almonacid"],
+      correcta: 1,
+      explicacion: "El pionero de la aviación argentina Jorge Newbery concedió la autorización para que Huracán lleve en el pecho el emblema de su globo 'El Huracán'.",
+      dificultad: "Fácil"
+    },
+    {
+      id: 5,
+      pregunta: "¿Quién es el jugador con mayor cantidad de presencias oficiales con la camiseta de Huracán?",
+      opciones: ["Jorge Hugo Alberti", "Herminio Masantonio", "Miguel Ángel Brindisi", "Jorge Carrascosa"],
+      correcta: 0,
+      explicacion: "El zaguero Jorge Hugo Alberti disputó 393 partidos oficiales entre 1930 y 1947, récord jamás superado.",
+      dificultad: "Intermedio"
+    },
+    {
+      id: 6,
+      pregunta: "¿A qué rival venció Huracán en la final de la Supercopa Argentina 2014 disputada en San Juan?",
+      opciones: ["Boca Juniors", "Rosario Central", "River Plate", "San Lorenzo"],
+      correcta: 2,
+      explicacion: "Huracán venció a River Plate 1 a 0 con gol del chileno Edson Puch el 25 de abril de 2015 en San Juan.",
+      dificultad: "Fácil"
+    },
+    {
+      id: 7,
+      pregunta: "¿Qué jugador de Huracán inventó el término 'Gol Olímpico' al convertir un tanto directo de córner en 1924?",
+      opciones: ["Ángel Chiesa", "Cesáreo Onzari", "Guillermo Stábile", "José Laguna"],
+      correcta: 1,
+      explicacion: "Cesáreo Onzari le convirtió un gol directo desde el tiro de esquina a Uruguay (campeón olímpico) el 2 de octubre de 1924.",
+      dificultad: "Intermedio"
+    },
+    {
+      id: 8,
+      pregunta: "¿Quién fue el arquero figura en los penales de la Copa Argentina 2013-14?",
+      opciones: ["Gastón Monzón", "Marcos Díaz", "Eduardo Domínguez", "Héctor Roganti"],
+      correcta: 1,
+      explicacion: "Marcos Díaz fue el héroe absoluto atajando penales frente a Banfield, Estudiantes, Rafaela y Rosario Central.",
+      dificultad: "Fácil"
+    },
+    {
+      id: 9,
+      pregunta: "¿Cuántos Campeonatos de Primera División ganó Huracán en total en su historia?",
+      opciones: ["3", "4", "5", "7"],
+      correcta: 2,
+      explicacion: "Huracán ganó 5 Campeonatos de Primera División: 1921, 1922, 1925 (invicto), 1928 y el Metropolitano 1973.",
+      dificultad: "Intermedio"
+    },
+    {
+      id: 10,
+      pregunta: "¿Cómo se llama popularmente el estadio del Club Atlético Huracán?",
+      opciones: ["La Bombonera", "El Cilindro", "El Palacio Tomás Adolfo Ducó", "El Monumental"],
+      correcta: 2,
+      explicacion: "El Estadio Tomás Adolfo Ducó es conocido como 'El Palacio' debido a su majestuosa arquitectura y dimensiones imponentes.",
+      dificultad: "Fácil"
+    },
+    {
+      id: 11,
+      pregunta: "¿En qué club jugaba René Houseman antes de llegar a Huracán en 1973?",
+      opciones: ["Defensores de Belgrano", "Excursionistas", "Platense", "Atlanta"],
+      correcta: 0,
+      explicacion: "Houseman deslumbró en Defensores de Belgrano en la Primera C y Primera B antes de que Menotti lo trajera al Globo.",
+      dificultad: "Difícil"
+    },
+    {
+      id: 12,
+      pregunta: "¿Quién es el máximo goleador histórico de la Copa América representando a la Selección Argentina y surgido de Huracán?",
+      opciones: ["Herminio Masantonio", "Norberto 'Tucho' Méndez", "Guillermo Stábile", "Emilio Baldonedo"],
+      correcta: 1,
+      explicacion: "'Tucho' Méndez comparte el récord histórico de 17 goles en la Copa América (Sudamericanos de 1945, 1946 y 1947).",
+      dificultad: "Intermedio"
+    }
+  ],
+
+  // Mapamundi Quemero
+  mapamundi: [
+    {
+      lugar: "Gira Europea de 1925",
+      pais: "España / Portugal / Alemania",
+      coordenadas: [40.4168, -3.7038],
+      detalle: "Guillermo Stábile y Cesareo Onzari reforzaron la gira legendaria por Europa que maravilló al Viejo Continente.",
+      anio: 1925
+    },
+    {
+      lugar: "Montevideo, Uruguay",
+      pais: "Uruguay",
+      coordenadas: [-34.9011, -56.1645],
+      detalle: "Duelos por la Copa Río de la Plata y partidos de Copa Libertadores en el Estadio Centenario.",
+      anio: 1974
+    },
+    {
+      lugar: "Bogotá, Colombia (Final Sudamericana)",
+      pais: "Colombia",
+      coordenadas: [4.7110, -74.0721],
+      detalle: "Estadio El Campín. Final de vuelta de la Copa Sudamericana 2015 ante Independiente Santa Fe.",
+      anio: 2015
+    },
+    {
+      lugar: "Belo Horizonte, Brasil",
+      pais: "Brasil",
+      coordenadas: [-19.9167, -43.9345],
+      detalle: "Histórico triunfo y partidazo en Copa Libertadores y Sudamericana ante Cruzeiro.",
+      anio: 2015
+    },
+    {
+      lugar: "Santiago de Chile",
+      pais: "Chile",
+      coordenadas: [-33.4489, -70.6693],
+      detalle: "Partidos internacionales de Copa Libertadores en el Estadio Nacional de Santiago.",
+      anio: 1974
+    },
+    {
+      lugar: "Madrid, España (Filial Quemera)",
+      pais: "España",
+      coordenadas: [40.4168, -3.7038],
+      detalle: "Sede de la activa Filial Oficial de Huracán en Madrid, donde se reúnen cientos de quemeros en Europa.",
+      anio: "Actualidad"
+    }
+  ]
+};
+
+// Exportar globalmente para scripts del navegador
+if (typeof window !== "undefined") {
+  window.HURACAN_DB = HURACAN_DB;
+}
+
+</script>
+<script>
+/**
+ * Museo Quemero - Motor de la Aplicación
+ * Club Atlético Huracán
+ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Inicialización general
+  initNavigation();
+  initSearch();
+  initOnThisDay();
+  renderInicio();
+  renderJugadores();
+  renderTecnicos();
+  renderPalmares();
+  renderPartidos();
+  renderRivales();
+  renderEstadios();
+  renderCamisetas();
+  renderMapamundi();
+  renderTrivia();
+  renderInstitucion();
+
+  // Escuchar cambios en la URL (hash)
+  window.addEventListener("hashchange", handleHashChange);
+  handleHashChange();
+});
+
+/* ==========================================================================
+   ENRUTADOR Y NAVEGACIÓN
+   ========================================================================== */
+function initNavigation() {
+  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const sidebar = document.getElementById("sidebar");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  if (mobileMenuBtn && sidebar) {
+    mobileMenuBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+
+    // Cerrar sidebar al hacer click fuera en móviles
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth <= 1024 && !sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        sidebar.classList.remove("open");
+      }
+    });
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth <= 1024 && sidebar) {
+        sidebar.classList.remove("open");
+      }
+    });
+  });
+}
+
+function handleHashChange() {
+  const hash = window.location.hash.replace("#", "") || "inicio";
+  const views = document.querySelectorAll(".view-section");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  let targetView = document.getElementById(`view-${hash}`);
+  if (!targetView) {
+    targetView = document.getElementById("view-inicio");
+  }
+
+  views.forEach(v => v.classList.remove("active"));
+  if (targetView) {
+    targetView.classList.add("active");
+  }
+
+  navLinks.forEach(link => {
+    const href = link.getAttribute("href")?.replace("#", "");
+    if (href === hash || (hash === "" && href === "inicio")) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ==========================================================================
+   BUSCADOR GLOBAL
+   ========================================================================== */
+function initSearch() {
+  const searchInput = document.getElementById("global-search-input");
+  const searchDropdown = document.getElementById("search-results-dropdown");
+
+  if (!searchInput || !searchDropdown) return;
+
+  searchInput.addEventListener("input", (e) => {
+    const query = e.target.value.trim().toLowerCase();
+    if (query.length < 2) {
+      searchDropdown.innerHTML = "";
+      searchDropdown.classList.remove("visible");
+      return;
+    }
+
+    const results = [];
+
+    // Buscar en Jugadores
+    HURACAN_DB.jugadores.forEach(j => {
+      if (j.nombre.toLowerCase().includes(query) || j.apodo.toLowerCase().includes(query) || j.posicion.toLowerCase().includes(query)) {
+        results.push({
+          tipo: "Jugador",
+          titulo: j.nombre,
+          subtitulo: `${j.posicion} | ${j.partidos} PJ - ${j.goles} Goles`,
+          badge: "Jugador",
+          action: () => openPlayerModal(j.id)
+        });
+      }
+    });
+
+    // Buscar en Técnicos
+    HURACAN_DB.tecnicos.forEach(t => {
+      if (t.nombre.toLowerCase().includes(query) || t.apodo.toLowerCase().includes(query)) {
+        results.push({
+          tipo: "Técnico",
+          titulo: t.nombre,
+          subtitulo: `${t.periodo} | ${t.titulos.join(", ")}`,
+          badge: "Técnico",
+          action: () => { window.location.hash = "tecnicos"; }
+        });
+      }
+    });
+
+    // Buscar en Palmarés
+    HURACAN_DB.palmares.forEach(p => {
+      if (p.tipo.toLowerCase().includes(query) || p.anio.toString().includes(query)) {
+        results.push({
+          tipo: "Título",
+          titulo: `${p.tipo} (${p.anio})`,
+          subtitulo: p.asociacion,
+          badge: "Palmarés",
+          action: () => openTitleModal(p.id)
+        });
+      }
+    });
+
+    // Buscar en Partidos
+    HURACAN_DB.partidos.forEach(part => {
+      if (part.rival.toLowerCase().includes(query) || part.torneo.toLowerCase().includes(query)) {
+        results.push({
+          tipo: "Partido",
+          titulo: `${part.resultado}`,
+          subtitulo: `${part.torneo} - ${part.fecha}`,
+          badge: "Partido",
+          action: () => openMatchModal(part.id)
+        });
+      }
+    });
+
+    // Buscar en Rivales
+    HURACAN_DB.rivales.forEach(r => {
+      if (r.nombre.toLowerCase().includes(query)) {
+        results.push({
+          tipo: "Rival",
+          titulo: r.nombre,
+          subtitulo: `${r.tipo} | ${r.partidosJugados} PJ`,
+          badge: "Rival",
+          action: () => { window.location.hash = "rivales"; }
+        });
+      }
+    });
+
+    renderSearchResults(results, searchDropdown);
+  });
+
+  // Ocultar dropdown si se hace click afuera
+  document.addEventListener("click", (e) => {
+    if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+      searchDropdown.classList.remove("visible");
+    }
+  });
+}
+
+function renderSearchResults(results, container) {
+  if (results.length === 0) {
+    container.innerHTML = `
+      <div class="p-4 text-center text-sm text-gray-500">
+        No se encontraron resultados para la búsqueda.
+      </div>
+    `;
+    container.classList.add("visible");
+    return;
+  }
+
+  container.innerHTML = results.slice(0, 8).map((res, index) => `
+    <div class="search-result-item" data-index="${index}">
+      <span class="search-badge">${res.badge}</span>
+      <div class="min-w-0 flex-1">
+        <div class="font-bold text-sm text-gray-900 truncate">${res.titulo}</div>
+        <div class="text-xs text-gray-500 truncate">${res.subtitulo}</div>
+      </div>
+      <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </div>
+  `).join("");
+
+  container.querySelectorAll(".search-result-item").forEach((item, idx) => {
+    item.addEventListener("click", () => {
+      results[idx].action();
+      container.classList.remove("visible");
+      document.getElementById("global-search-input").value = "";
+    });
+  });
+
+  container.classList.add("visible");
+}
+
+/* ==========================================================================
+   UN DÍA COMO HOY (CALENDARIO DINÁMICO)
+   ========================================================================== */
+function initOnThisDay() {
+  const dateInput = document.getElementById("on-this-day-date");
+  const today = new Date();
+  const currentMonth = today.getMonth() + 1; // 1 - 12
+  const currentDay = today.getDate();
+
+  updateOnThisDay(currentMonth, currentDay);
+
+  if (dateInput) {
+    // Formato YYYY-MM-DD para el input tipo date
+    const formattedMonth = String(currentMonth).padStart(2, "0");
+    const formattedDay = String(currentDay).padStart(2, "0");
+    dateInput.value = `${today.getFullYear()}-${formattedMonth}-${formattedDay}`;
+
+    dateInput.addEventListener("change", (e) => {
+      if (e.target.value) {
+        const parts = e.target.value.split("-");
+        const m = parseInt(parts[1], 10);
+        const d = parseInt(parts[2], 10);
+        updateOnThisDay(m, d);
+      }
+    });
+  }
+}
+
+function updateOnThisDay(month, day) {
+  const containerPersonas = document.getElementById("on-this-day-personas");
+  const containerPartidos = document.getElementById("on-this-day-partidos");
+  const labelFecha = document.getElementById("current-date-label");
+
+  const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  if (labelFecha) {
+    labelFecha.textContent = `${day} de ${monthNames[month - 1]}`;
+  }
+
+  // Efemérides correspondientes
+  const matchesEvents = HURACAN_DB.efemerides.filter(e => e.mes === month && e.dia === day);
+
+  // Si no hay efeméride exacta para el día, mostrar la más destacada del mes o fecha icónica cercana
+  const eventsToShow = matchesEvents.length > 0 
+    ? matchesEvents 
+    : [
+        {
+          titulo: "16 de Septiembre de 1973 - Campeón Metropolitano",
+          tipo: "Hito Dorado",
+          descripcion: "En este mes de Septiembre, el Huracán de Menotti con Houseman, Brindisi y Babington maravilló al fútbol mundial alcanzando la gloria en el Ducó.",
+          icono: "trophy"
+        },
+        {
+          titulo: "1 de Noviembre de 1908 - Fundación del Globo",
+          tipo: "Institución",
+          descripcion: "Los fundadores bautizaron a la institución en honor al legendario globo aerostático del Ingeniero Jorge Newbery.",
+          icono: "flag"
+        }
+      ];
+
+  if (containerPersonas) {
+    containerPersonas.innerHTML = eventsToShow.map(ev => `
+      <div class="timeline-item">
+        <div class="timeline-icon">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+          </svg>
+        </div>
+        <div class="timeline-content">
+          <span class="text-xs font-bold text-red-600 uppercase tracking-wider">${ev.tipo}</span>
+          <h4>${ev.titulo}</h4>
+          <p>${ev.descripcion}</p>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  if (containerPartidos) {
+    containerPartidos.innerHTML = `
+      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-slate-500 uppercase">Partidos Memorables de la Época</span>
+          <span class="px-2 py-0.5 bg-red-100 text-red-700 text-xs font-bold rounded-full">Oficial AFA</span>
+        </div>
+        <div class="flex items-center justify-between py-3 border-y border-slate-200">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-red-600 text-white font-bold flex items-center justify-center text-xs">CAH</div>
+            <span class="font-bold text-slate-800">Huracán</span>
+          </div>
+          <span class="text-lg font-black text-red-600 px-3 py-1 bg-white rounded-lg border border-slate-200 shadow-sm">1 - 0</span>
+          <div class="flex items-center gap-3">
+            <span class="font-bold text-slate-800">River Plate</span>
+            <div class="w-8 h-8 rounded-full bg-slate-200 font-bold flex items-center justify-center text-xs text-slate-700">CARP</div>
+          </div>
+        </div>
+        <p class="mt-2 text-xs text-slate-600">
+          Supercopa Argentina. Gol inolvidable del chileno Edson Puch en San Juan.
+        </p>
+      </div>
+    `;
+  }
+}
+
+/* ==========================================================================
+   VISTA: INICIO
+   ========================================================================== */
+function renderInicio() {
+  const podioGoleadores = document.getElementById("podio-goleadores-container");
+  const podioPresencias = document.getElementById("podio-presencias-container");
+
+  if (podioGoleadores) {
+    podioGoleadores.innerHTML = HURACAN_DB.topGoleadores.slice(0, 4).map((jug, idx) => `
+      <div class="player-card" onclick="openPlayerModal('${jug.id}')">
+        <div class="player-avatar-wrapper">
+          <div class="player-avatar-circle">${jug.nombre.charAt(0)}</div>
+          <span class="player-card-badge">#${idx + 1} Goleador</span>
+        </div>
+        <div class="player-card-info">
+          <h4 class="player-name">${jug.nombre}</h4>
+          <span class="player-sub">${jug.periodo}</span>
+          <div class="player-stats-row">
+            <div class="stat-item">
+              <div class="stat-val">${jug.goles}</div>
+              <div class="stat-lbl">Goles</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val">${jug.partidos}</div>
+              <div class="stat-lbl">Partidos</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  if (podioPresencias) {
+    podioPresencias.innerHTML = HURACAN_DB.topPresencias.slice(0, 4).map((jug, idx) => `
+      <div class="player-card" onclick="openPlayerModal('${jug.id}')">
+        <div class="player-avatar-wrapper">
+          <div class="player-avatar-circle">${jug.nombre.charAt(0)}</div>
+          <span class="player-card-badge">#${idx + 1} Presencias</span>
+        </div>
+        <div class="player-card-info">
+          <h4 class="player-name">${jug.nombre}</h4>
+          <span class="player-sub">${jug.periodo}</span>
+          <div class="player-stats-row">
+            <div class="stat-item">
+              <div class="stat-val">${jug.partidos}</div>
+              <div class="stat-lbl">Partidos</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val">${jug.goles}</div>
+              <div class="stat-lbl">Goles</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join("");
+  }
+}
+
+/* ==========================================================================
+   VISTA: JUGADORES
+   ========================================================================== */
+function renderJugadores() {
+  const container = document.getElementById("jugadores-list-container");
+  const filterDecada = document.getElementById("filter-decada");
+  const filterPosicion = document.getElementById("filter-posicion");
+  const filterSort = document.getElementById("filter-sort");
+  const searchPlayer = document.getElementById("search-player-input");
+
+  function applyFilters() {
+    let list = [...HURACAN_DB.jugadores];
+
+    // Filtro década
+    const decadaVal = filterDecada ? filterDecada.value : "all";
+    if (decadaVal !== "all") {
+      list = list.filter(j => j.decada === decadaVal);
+    }
+
+    // Filtro posición
+    const posVal = filterPosicion ? filterPosicion.value : "all";
+    if (posVal !== "all") {
+      list = list.filter(j => j.linea === posVal);
+    }
+
+    // Búsqueda específica
+    const query = searchPlayer ? searchPlayer.value.trim().toLowerCase() : "";
+    if (query) {
+      list = list.filter(j => j.nombre.toLowerCase().includes(query) || j.apodo.toLowerCase().includes(query));
+    }
+
+    // Ordenamiento
+    const sortVal = filterSort ? filterSort.value : "goles";
+    if (sortVal === "goles") {
+      list.sort((a, b) => b.goles - a.goles);
+    } else if (sortVal === "partidos") {
+      list.sort((a, b) => b.partidos - a.partidos);
+    } else if (sortVal === "nombre") {
+      list.sort((a, b) => a.nombre.localeCompare(b.nombre));
+    }
+
+    if (container) {
+      if (list.length === 0) {
+        container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">No se encontraron jugadores con los filtros seleccionados.</div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(jug => `
+        <div class="player-card" onclick="openPlayerModal('${jug.id}')">
+          <div class="player-avatar-wrapper">
+            <div class="player-avatar-circle">${jug.nombre.charAt(0)}</div>
+            <span class="player-card-badge">${jug.posicion}</span>
+          </div>
+          <div class="player-card-info">
+            <h4 class="player-name">${jug.nombre}</h4>
+            <span class="player-sub">"${jug.apodo}" | ${jug.periodo}</span>
+            <div class="player-stats-row">
+              <div class="stat-item">
+                <div class="stat-val">${jug.partidos}</div>
+                <div class="stat-lbl">Partidos</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-val">${jug.goles}</div>
+                <div class="stat-lbl">Goles</div>
+              </div>
+            </div>
+            <button class="btn-outline w-full mt-3 justify-center text-xs py-2">
+              Ver Ficha Histórica
+            </button>
+          </div>
+        </div>
+      `).join("");
+    }
+  }
+
+  if (filterDecada) filterDecada.addEventListener("change", applyFilters);
+  if (filterPosicion) filterPosicion.addEventListener("change", applyFilters);
+  if (filterSort) filterSort.addEventListener("change", applyFilters);
+  if (searchPlayer) searchPlayer.addEventListener("input", applyFilters);
+
+  applyFilters();
+}
+
+/* ==========================================================================
+   VISTA: TÉCNICOS
+   ========================================================================== */
+function renderTecnicos() {
+  const container = document.getElementById("tecnicos-list-container");
+  if (!container) return;
+
+  container.innerHTML = HURACAN_DB.tecnicos.map(dt => `
+    <div class="card-granate p-6 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full">${dt.periodo}</span>
+          <span class="text-xs font-semibold text-gray-500">${dt.partidos} PJ | ${dt.efectividad} efect.</span>
+        </div>
+        <h3 class="text-xl font-extrabold text-gray-900 mb-1">${dt.nombre}</h3>
+        <p class="text-xs font-semibold text-red-600 mb-3">${dt.apodo}</p>
+        <p class="text-sm text-gray-600 mb-4 leading-relaxed">${dt.descripcion}</p>
+        
+        <div class="mb-4">
+          <h5 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Títulos y Hitos</h5>
+          <div class="flex flex-wrap gap-1.5">
+            ${dt.titulos.map(t => `<span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-md font-medium">${t}</span>`).join("")}
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3 bg-red-50/70 border-l-4 border-red-600 rounded-r-lg text-xs italic text-gray-700 mt-2">
+        ${dt.frase}
+      </div>
+    </div>
+  `).join("");
+}
+
+/* ==========================================================================
+   VISTA: PALMARÉS
+   ========================================================================== */
+function renderPalmares() {
+  const container = document.getElementById("palmares-list-container");
+  const filterTabs = document.querySelectorAll(".palmares-tab");
+
+  function filterPalmares(category) {
+    let list = [...HURACAN_DB.palmares];
+    if (category === "ligas") {
+      list = list.filter(t => t.categoria === "Liga Nacional");
+    } else if (category === "copas") {
+      list = list.filter(t => t.categoria === "Copa Nacional");
+    }
+
+    if (container) {
+      container.innerHTML = list.map(tit => `
+        <div class="title-card cursor-pointer" onclick="openTitleModal('${tit.id}')">
+          <span class="title-year-badge">${tit.anio}</span>
+          <span class="text-xs font-bold uppercase tracking-wider block text-red-600 mb-1">${tit.categoria}</span>
+          <h3 class="title-name">${tit.tipo}</h3>
+          <p class="text-xs font-medium text-gray-500 mb-3">${tit.asociacion}</p>
+          <p class="text-sm text-gray-600 mb-4 line-clamp-3">${tit.detalle}</p>
+          <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
+            <span><strong>${tit.partidos}</strong> Partidos</span>
+            <span><strong>${tit.golesFavor}</strong> Goles a favor</span>
+            <span class="text-red-600 font-bold">Ver Campaña &rarr;</span>
+          </div>
+        </div>
+      `).join("");
+    }
+  }
+
+  filterTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      filterTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      filterPalmares(tab.dataset.category);
+    });
+  });
+
+  filterPalmares("all");
+}
+
+/* ==========================================================================
+   VISTA: PARTIDOS HISTÓRICOS
+   ========================================================================== */
+function renderPartidos() {
+  const container = document.getElementById("partidos-list-container");
+  if (!container) return;
+
+  container.innerHTML = HURACAN_DB.partidos.map(part => `
+    <div class="card-granate p-6 cursor-pointer hover:border-red-400 transition-all" onclick="openMatchModal('${part.id}')">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full">${part.torneo}</span>
+        <span class="text-xs font-semibold text-gray-500">${part.fecha}</span>
+      </div>
+      <h3 class="text-2xl font-black text-gray-900 mb-2">${part.resultado}</h3>
+      <p class="text-xs text-gray-500 mb-3"><strong>Escenario:</strong> ${part.estadio}</p>
+      <p class="text-sm text-gray-600 mb-4 leading-relaxed">${part.resumen}</p>
+      <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 text-xs text-gray-700">
+        <strong>Alineación quemera:</strong> ${part.alineacion}
+      </div>
+    </div>
+  `).join("");
+}
+
+/* ==========================================================================
+   VISTA: RIVALES E HISTORIALES
+   ========================================================================== */
+function renderRivales() {
+  const container = document.getElementById("rivales-list-container");
+  if (!container) return;
+
+  container.innerHTML = HURACAN_DB.rivales.map(riv => {
+    const total = riv.partidosJugados;
+    const pctHuracan = Math.round((riv.victoriasHuracan / total) * 100);
+    const pctEmpates = Math.round((riv.empates / total) * 100);
+    const pctRival = Math.round((riv.victoriasRival / total) * 100);
+
+    return `
+      <div class="rival-card">
+        <div class="rival-header">
+          <div>
+            <span class="text-xs font-bold text-red-600 uppercase tracking-wider">${riv.tipo}</span>
+            <h3 class="text-xl font-black text-gray-900">${riv.nombre}</h3>
+            <span class="text-xs text-gray-500">Apodo: ${riv.apodo}</span>
+          </div>
+        </div>
+
+        <p class="text-sm text-gray-600">${riv.descripcion}</p>
+
+        <div class="rival-stats-grid">
+          <div>
+            <div class="text-lg font-black text-gray-900">${riv.partidosJugados}</div>
+            <div class="text-[10px] uppercase font-bold text-gray-400">Jugados</div>
+          </div>
+          <div>
+            <div class="text-lg font-black text-red-600">${riv.victoriasHuracan}</div>
+            <div class="text-[10px] uppercase font-bold text-gray-400">Huracán</div>
+          </div>
+          <div>
+            <div class="text-lg font-black text-gray-600">${riv.empates}</div>
+            <div class="text-[10px] uppercase font-bold text-gray-400">Empates</div>
+          </div>
+          <div>
+            <div class="text-lg font-black text-gray-800">${riv.victoriasRival}</div>
+            <div class="text-[10px] uppercase font-bold text-gray-400">${riv.nombre.split(" ")[0]}</div>
+          </div>
+        </div>
+
+        <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden flex">
+          <div class="bg-red-600 h-full" style="width: ${pctHuracan}%" title="Huracán: ${pctHuracan}%"></div>
+          <div class="bg-gray-400 h-full" style="width: ${pctEmpates}%" title="Empates: ${pctEmpates}%"></div>
+          <div class="bg-blue-800 h-full" style="width: ${pctRival}%" title="Rival: ${pctRival}%"></div>
+        </div>
+
+        <div class="text-xs text-gray-600 space-y-1 pt-2 border-t border-gray-100">
+          <div><strong>Partido Mítico:</strong> ${riv.partidoMitico}</div>
+          <div><strong>Máximo Verdugo Quemero:</strong> ${riv.maximoGoleadorQuemero}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+/* ==========================================================================
+   VISTA: ESTADIOS Y PATRIMONIO
+   ========================================================================== */
+function renderEstadios() {
+  const container = document.getElementById("estadios-list-container");
+  if (!container) return;
+
+  container.innerHTML = HURACAN_DB.estadios.map(est => `
+    <div class="card-granate p-6">
+      <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full mb-2 inline-block">Patrimonio Histórico</span>
+      <h3 class="text-2xl font-black text-gray-900 mb-2">${est.nombre}</h3>
+      <div class="text-xs text-gray-500 mb-4 space-y-1">
+        <div><strong>Inauguración:</strong> ${est.inauguracion}</div>
+        <div><strong>Ubicación:</strong> ${est.ubicacion}</div>
+        <div><strong>Capacidad:</strong> ${est.capacidad.toLocaleString()} espectadores</div>
+      </div>
+      <p class="text-sm text-gray-600 mb-4 leading-relaxed">${est.arquitectura}</p>
+      
+      ${est.tribunas ? `
+        <div class="mb-4">
+          <h5 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Tribunas del Palacio</h5>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            ${est.tribunas.map(trib => `
+              <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs">
+                <div class="font-bold text-gray-900">${trib.nombre}</div>
+                <div class="text-gray-500">${trib.sector} (${trib.capacidad} personas)</div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      ` : ''}
+
+      <div class="p-3 bg-red-50 text-red-800 text-xs rounded-lg font-medium">
+        ${est.distincion}
+      </div>
+    </div>
+  `).join("");
+}
+
+/* ==========================================================================
+   VISTA: CAMISETAS HISTÓRICAS
+   ========================================================================== */
+function renderCamisetas() {
+  const container = document.getElementById("camisetas-list-container");
+  if (!container) return;
+
+  container.innerHTML = HURACAN_DB.camisetas.map(cam => `
+    <div class="card-granate p-6 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xl font-black text-red-600">${cam.anio}</span>
+          <span class="px-2.5 py-1 bg-slate-100 text-slate-800 text-xs font-bold rounded-md">${cam.marca}</span>
+        </div>
+        <h4 class="text-lg font-extrabold text-gray-900 mb-1">${cam.nombre}</h4>
+        <span class="text-xs text-gray-400 block mb-3">Sponsor: ${cam.sponsor}</span>
+        <p class="text-sm text-gray-600 mb-4 leading-relaxed">${cam.descripcion}</p>
+      </div>
+
+      <div class="pt-3 border-t border-gray-100 text-xs text-gray-500">
+        <strong>Gloria asociada:</strong> ${cam.titulos}
+      </div>
+    </div>
+  `).join("");
+}
+
+/* ==========================================================================
+   VISTA: MAPAMUNDI QUEMERO
+   ========================================================================== */
+function renderMapamundi() {
+  const container = document.getElementById("mapamundi-list-container");
+  if (!container) return;
+
+  container.innerHTML = HURACAN_DB.mapamundi.map(pt => `
+    <div class="card-granate p-5">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">${pt.pais}</span>
+        <span class="text-xs font-bold text-gray-400">${pt.anio}</span>
+      </div>
+      <h4 class="text-lg font-extrabold text-gray-900 mb-2">${pt.lugar}</h4>
+      <p class="text-sm text-gray-600">${pt.detalle}</p>
+    </div>
+  `).join("");
+}
+
+/* ==========================================================================
+   VISTA: TRIVIA QUEMERA
+   ========================================================================== */
+let triviaCurrentIndex = 0;
+let triviaScore = 0;
+let triviaStreak = 0;
+
+function renderTrivia() {
+  const container = document.getElementById("trivia-game-wrapper");
+  if (!container) return;
+
+  const q = HURACAN_DB.trivia[triviaCurrentIndex];
+  const progressPct = ((triviaCurrentIndex) / HURACAN_DB.trivia.length) * 100;
+
+  container.innerHTML = `
+    <div class="trivia-container">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-xs font-bold uppercase text-red-600 tracking-wider">
+          Pregunta ${triviaCurrentIndex + 1} de ${HURACAN_DB.trivia.length}
+        </span>
+        <div class="flex gap-3 text-xs font-bold">
+          <span class="text-slate-700">Aciertos: <strong class="text-red-600">${triviaScore}</strong></span>
+          <span class="text-amber-600">Racha: 🔥 <strong>${triviaStreak}</strong></span>
+        </div>
+      </div>
+
+      <div class="trivia-progress-bar">
+        <div class="trivia-progress-fill" style="width: ${progressPct}%"></div>
+      </div>
+
+      <h3 class="trivia-question">${q.pregunta}</h3>
+
+      <div class="trivia-options" id="trivia-options-box">
+        ${q.opciones.map((opt, idx) => `
+          <button class="trivia-option-btn" onclick="checkTriviaAnswer(${idx})">
+            ${opt}
+          </button>
+        `).join("")}
+      </div>
+
+      <div id="trivia-feedback" class="hidden p-4 rounded-xl text-sm font-medium mb-4"></div>
+
+      <div class="flex justify-end">
+        <button id="trivia-next-btn" class="btn-globo hidden" onclick="nextTriviaQuestion()">
+          Siguiente Pregunta &rarr;
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+window.checkTriviaAnswer = function(selectedIdx) {
+  const q = HURACAN_DB.trivia[triviaCurrentIndex];
+  const buttons = document.querySelectorAll(".trivia-option-btn");
+  const feedback = document.getElementById("trivia-feedback");
+  const nextBtn = document.getElementById("trivia-next-btn");
+
+  buttons.forEach((btn, idx) => {
+    btn.disabled = true;
+    if (idx === q.correcta) {
+      btn.classList.add("correct");
+    } else if (idx === selectedIdx) {
+      btn.classList.add("wrong");
+    }
+  });
+
+  if (selectedIdx === q.correcta) {
+    triviaScore++;
+    triviaStreak++;
+    feedback.className = "p-4 rounded-xl text-sm font-medium mb-4 bg-green-50 text-green-800 border border-green-200 block";
+    feedback.innerHTML = `<strong>¡Correcto, Quemero!</strong> ${q.explicacion}`;
+  } else {
+    triviaStreak = 0;
+    feedback.className = "p-4 rounded-xl text-sm font-medium mb-4 bg-red-50 text-red-800 border border-red-200 block";
+    feedback.innerHTML = `<strong>Respuesta incorrecta.</strong> ${q.explicacion}`;
+  }
+
+  if (nextBtn) nextBtn.classList.remove("hidden");
+};
+
+window.nextTriviaQuestion = function() {
+  triviaCurrentIndex++;
+  if (triviaCurrentIndex < HURACAN_DB.trivia.length) {
+    renderTrivia();
+  } else {
+    showTriviaResults();
+  }
+};
+
+function showTriviaResults() {
+  const container = document.getElementById("trivia-game-wrapper");
+  const total = HURACAN_DB.trivia.length;
+  const pct = Math.round((triviaScore / total) * 100);
+
+  let titulo = "Quemero Novato";
+  if (pct >= 90) titulo = "¡Quemero de Ley Absoluto!";
+  else if (pct >= 70) titulo = "Gran Conocedor del Globo";
+  else if (pct >= 50) titulo = "Quemero con Memoria";
+
+  container.innerHTML = `
+    <div class="trivia-container text-center py-10">
+      <div class="w-20 h-20 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-black">
+        ★
+      </div>
+      <h3 class="text-3xl font-black text-gray-900 mb-2">¡Trivia Completada!</h3>
+      <p class="text-lg font-bold text-red-600 mb-4">${titulo}</p>
+      <div class="text-4xl font-black text-gray-900 mb-2">${triviaScore} / ${total}</div>
+      <p class="text-sm text-gray-500 mb-6">Respondiste correctamente el ${pct}% de las preguntas históricas.</p>
+      <button class="btn-globo mx-auto" onclick="resetTrivia()">
+        Volver a Jugar
+      </button>
+    </div>
+  `;
+}
+
+window.resetTrivia = function() {
+  triviaCurrentIndex = 0;
+  triviaScore = 0;
+  triviaStreak = 0;
+  renderTrivia();
+};
+
+/* ==========================================================================
+   VISTA: INSTITUCIÓN & ORÍGENES
+   ========================================================================== */
+function renderInstitucion() {
+  const container = document.getElementById("institucion-content-wrapper");
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="space-y-8 max-w-4xl mx-auto">
+      <div class="card-granate p-8">
+        <h3 class="text-2xl font-black text-red-600 mb-4">El Bautismo del Globo y Jorge Newbery</h3>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          A principios del siglo XX, un grupo de jóvenes entusiastas de Nueva Pompeya y Parque Patricios decidió fundar un club de fútbol. Tras una primera etapa informal bajo el nombre 'Verde Esperanza y Nunca Pierde', el 1 de noviembre de 1908 se formalizó la asamblea fundacional en la calle Ventana 859.
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          Inspirados por la hazaña patriótica del Ingeniero Jorge Newbery, quien el 25 de diciembre de 1909 cruzó el Río de la Plata a bordo del aerostato 'El Huracán', los fundadores le solicitaron permiso para utilizar el símbolo del globo aerostático como divisa oficial. Newbery no solo aceptó encantado sino que se convirtió en el primer Presidente Honorario y benefactor de la institución.
+        </p>
+        <div class="p-4 bg-slate-50 border-l-4 border-red-600 rounded-r-lg text-sm italic text-gray-800">
+          "El distintivo de Huracán será el globo rojo que surca los cielos de la patria con valentía, nobleza e hidalguía deportiva." — Ingeniero Jorge Newbery.
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card-granate p-6">
+          <h4 class="text-lg font-bold text-gray-900 mb-2">¿Por qué 'Los Quemeros'?</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            Hacia fines del siglo XIX y principios del XX, en los límites de Parque Patricios funcionaba el Vaciadero Municipal de Basura de la Ciudad de Buenos Aires, conocido popularmente como 'La Quema'. Los vecinos e hinchas adoptaron con orgullo este apodo proletario, convirtiéndolo en bandera de pertenencia indiscutida.
+          </p>
+        </div>
+
+        <div class="card-granate p-6">
+          <h4 class="text-lg font-bold text-gray-900 mb-2">Oscar 'Ringo' Bonavena</h4>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            El legendario peso pesado argentino, que combatió de igual a igual contra Muhammad Ali y Joe Frazier, era fanático empedernido de Huracán. Creció y entrenó en la sede social de Caseros. Hoy en día, la tribuna popular local del Palacio Tomás A. Ducó y la calle adyacente llevan su nombre eterno.
+          </p>
+        </div>
+      </div>
+
+      <div class="card-granate p-6">
+        <h4 class="text-lg font-bold text-gray-900 mb-3">Himno Oficial del Club Atlético Huracán</h4>
+        <div class="text-sm text-gray-700 space-y-2 italic bg-slate-50 p-6 rounded-xl border border-slate-200">
+          <p>"Sopla el viento del triunfo sonoro,</p>
+          <p>va elevándose el Globo triunfal,</p>
+          <p>es Huracán corazón de mi barrio,</p>
+          <p>emblema de fuego, pasión popular."</p>
+          <p class="pt-2 font-semibold not-italic text-xs text-red-600">— Compuesto por Vicente Greco y letra de Alfredo Rovira.</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/* ==========================================================================
+   MODALES UNIVERSALES
+   ========================================================================== */
+window.openPlayerModal = function(id) {
+  const jug = HURACAN_DB.jugadores.find(j => j.id === id);
+  if (!jug) return;
+
+  const modal = document.getElementById("universal-modal");
+  const modalBody = document.getElementById("modal-dynamic-content");
+
+  modalBody.innerHTML = `
+    <div class="p-8">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-20 h-20 rounded-full bg-red-600 text-white font-black text-3xl flex items-center justify-center shrink-0 shadow-lg">
+          ${jug.nombre.charAt(0)}
+        </div>
+        <div>
+          <span class="px-2.5 py-0.5 bg-red-100 text-red-700 font-bold text-xs rounded-full uppercase">${jug.posicion}</span>
+          <h3 class="text-2xl font-black text-gray-900 leading-tight mt-1">${jug.nombre}</h3>
+          <p class="text-sm text-gray-500">"${jug.apodo}" | ${jug.periodo}</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3 bg-slate-50 p-4 rounded-xl text-center mb-6 border border-slate-200">
+        <div>
+          <div class="text-2xl font-black text-red-600">${jug.partidos}</div>
+          <div class="text-xs uppercase font-bold text-gray-400">Partidos</div>
+        </div>
+        <div>
+          <div class="text-2xl font-black text-gray-900">${jug.goles}</div>
+          <div class="text-xs uppercase font-bold text-gray-400">Goles</div>
+        </div>
+        <div>
+          <div class="text-2xl font-black text-gray-900">${jug.promedio}</div>
+          <div class="text-xs uppercase font-bold text-gray-400">Promedio</div>
+        </div>
+      </div>
+
+      <h5 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Biografía y Trayectoria</h5>
+      <p class="text-sm text-gray-700 leading-relaxed mb-6">${jug.descripcion}</p>
+
+      <h5 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Hitos y Récords</h5>
+      <ul class="space-y-2 mb-6">
+        ${jug.hitos.map(h => `
+          <li class="flex items-start gap-2 text-sm text-gray-700">
+            <svg class="w-4 h-4 text-red-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>${h}</span>
+          </li>
+        `).join("")}
+      </ul>
+
+      <div class="pt-4 border-t border-gray-200 flex justify-between text-xs text-gray-500">
+        <span><strong>Nacimiento:</strong> ${jug.nacimiento}</span>
+        ${jug.fallecimiento ? `<span><strong>Fallecimiento:</strong> ${jug.fallecimiento}</span>` : ''}
+      </div>
+    </div>
+  `;
+
+  modal.classList.add("active");
+};
+
+window.openTitleModal = function(id) {
+  const tit = HURACAN_DB.palmares.find(t => t.id === id);
+  if (!tit) return;
+
+  const modal = document.getElementById("universal-modal");
+  const modalBody = document.getElementById("modal-dynamic-content");
+
+  modalBody.innerHTML = `
+    <div class="p-8">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-3xl font-black text-red-600">${tit.anio}</span>
+        <span class="px-3 py-1 bg-red-100 text-red-700 font-bold text-xs rounded-full uppercase">${tit.categoria}</span>
+      </div>
+
+      <h3 class="text-2xl font-black text-gray-900 mb-2">${tit.tipo}</h3>
+      <p class="text-sm text-gray-500 mb-4">${tit.asociacion}</p>
+
+      <div class="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl mb-6 border border-slate-200 text-center">
+        <div>
+          <div class="text-2xl font-black text-gray-900">${tit.partidos}</div>
+          <div class="text-xs uppercase font-bold text-gray-400">Partidos Jugados</div>
+        </div>
+        <div>
+          <div class="text-2xl font-black text-red-600">${tit.golesFavor}</div>
+          <div class="text-xs uppercase font-bold text-gray-400">Goles a Favor</div>
+        </div>
+      </div>
+
+      <h5 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Reseña de la Conquista</h5>
+      <p class="text-sm text-gray-700 leading-relaxed mb-6">${tit.detalle}</p>
+
+      <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 text-xs text-gray-700 space-y-1">
+        <div><strong>Director Técnico:</strong> ${tit.dt}</div>
+        <div><strong>Grandes Figuras:</strong> ${tit.figuras}</div>
+      </div>
+    </div>
+  `;
+
+  modal.classList.add("active");
+};
+
+window.openMatchModal = function(id) {
+  const part = HURACAN_DB.partidos.find(p => p.id === id);
+  if (!part) return;
+
+  const modal = document.getElementById("universal-modal");
+  const modalBody = document.getElementById("modal-dynamic-content");
+
+  modalBody.innerHTML = `
+    <div class="p-8">
+      <div class="flex items-center justify-between mb-3">
+        <span class="px-3 py-1 bg-red-100 text-red-700 font-bold text-xs rounded-full">${part.torneo}</span>
+        <span class="text-xs font-semibold text-gray-500">${part.fecha}</span>
+      </div>
+
+      <h3 class="text-3xl font-black text-gray-900 mb-2">${part.resultado}</h3>
+      <p class="text-xs text-gray-500 mb-4"><strong>Estadio:</strong> ${part.estadio}</p>
+
+      <h5 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Crónica del Encuentro</h5>
+      <p class="text-sm text-gray-700 leading-relaxed mb-6">${part.resumen}</p>
+
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-gray-800">
+        <strong>Formación Histórica:</strong>
+        <p class="mt-1 leading-relaxed">${part.alineacion}</p>
+      </div>
+    </div>
+  `;
+
+  modal.classList.add("active");
+};
+
+window.closeUniversalModal = function() {
+  const modal = document.getElementById("universal-modal");
+  if (modal) modal.classList.remove("active");
+};
+
+window.openMobileShareModal = function() {
+  const modal = document.getElementById("universal-modal");
+  const modalBody = document.getElementById("modal-dynamic-content");
+
+  // IP local de tu computadora en la red Wi-Fi
+  const localIp = "192.168.0.16";
+  const port = window.location.port || "8080";
+  const mobileUrl = `http://${localIp}:${port}`;
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(mobileUrl)}`;
+
+  modalBody.innerHTML = `
+    <div class="p-8">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+        </div>
+        <div>
+          <h3 class="text-xl font-black text-gray-900">Ver en tu Celular o Compartir</h3>
+          <p class="text-xs text-gray-500">Opciones para ver el Museo Quemero desde cualquier dispositivo</p>
+        </div>
+      </div>
+
+      <!-- Opción 1: En tu red Wi-Fi (Ahora mismo) -->
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-5">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold uppercase text-red-600 tracking-wider">Opción 1: Desde tu celular ahora</span>
+          <span class="px-2 py-0.5 bg-green-100 text-green-800 text-[10px] font-extrabold rounded-full">Mismo Wi-Fi</span>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row items-center gap-5">
+          <div class="p-2 bg-white rounded-xl shadow-sm border border-slate-200 shrink-0">
+            <img src="${qrUrl}" alt="Código QR para celular" class="w-36 h-36 rounded-lg">
+          </div>
+          <div class="flex-1 text-xs text-slate-600 space-y-2">
+            <p><strong>1. Escanea el código QR</strong> con la cámara de tu celular, o ingresa manualmente a:</p>
+            <div class="p-2 bg-white border border-slate-200 rounded-lg font-mono text-sm font-bold text-slate-900 break-all select-all">
+              ${mobileUrl}
+            </div>
+            <p class="text-[11px] text-slate-500">
+              * Asegúrate de tener el archivo <code>iniciar_museo.bat</code> corriendo en la PC y tu celular conectado al mismo Wi-Fi.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Opción 2: Publicar en Internet Gratis para todo el mundo -->
+      <div class="bg-red-50/60 border border-red-200 rounded-2xl p-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold uppercase text-red-700 tracking-wider">Opción 2: Para mostrarlo desde cualquier lugar</span>
+          <span class="px-2 py-0.5 bg-red-200 text-red-900 text-[10px] font-extrabold rounded-full">100% Gratis</span>
+        </div>
+        <p class="text-xs text-slate-700 mb-3 leading-relaxed">
+          Como el Museo Quemero es una web estática rápida (HTML, CSS, JS), puedes subirlo en 1 minuto a la nube y tener un link permanente:
+        </p>
+        <ul class="text-xs text-slate-700 space-y-2">
+          <li class="flex items-start gap-2">
+            <span class="font-bold text-red-600">✦</span>
+            <span><strong>Netlify Drop:</strong> Entra a <a href="https://app.netlify.com/drop" target="_blank" class="text-red-600 underline font-bold">app.netlify.com/drop</a> y arrastra la carpeta <code>museo-huracan</code>. ¡Listo en 30 segundos!</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="font-bold text-red-600">✦</span>
+            <span><strong>Vercel o GitHub Pages:</strong> Sube los archivos a GitHub y activa GitHub Pages para tener un enlace como <code>tu-usuario.github.io/museo-huracan</code>.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  `;
+
+  modal.classList.add("active");
+};
+
+// Cerrar modal con tecla Escape
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    closeUniversalModal();
+  }
+});
+
+</script>
+</body>
+</html>
