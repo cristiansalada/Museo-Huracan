@@ -9,7 +9,7 @@
   <!-- Favicon Globo SVG -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='45' r='38' fill='%23E01E2B'/><path d='M42 83 L58 83 L54 94 L46 94 Z' fill='%23B91420'/><path d='M45 45 Q50 30 55 45 Q50 60 45 45' fill='white'/></svg>">
 
-  <!-- Tailwind CSS CDN para agilidad y diseño responsivo -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -32,7 +32,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- Estilos del Museo Quemero -->
   <style>
 /* ==========================================================================
    MUSEO QUEMERO - CLUB ATLÉTICO HURACÁN
@@ -895,25 +894,20 @@ body {
   }
 }
 
-</style>
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
   <div class="app-container">
-    <!-- ====================================================================
-         SIDEBAR (BARRA LATERAL - ESTILO MUSEO GRANATE)
-         ==================================================================== -->
+    <!-- SIDEBAR -->
     <aside id="sidebar" class="sidebar">
       <div class="sidebar-header">
         <a href="#inicio" class="logo-container">
-          <!-- Escudo / Globo de Huracán en SVG -->
           <svg class="logo-globo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <ellipse cx="50" cy="42" rx="36" ry="40" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2"/>
             <path d="M50 2 C68 2 84 18 84 42 C84 62 68 78 58 82 L42 82 C32 78 16 62 16 42 C16 18 32 2 50 2 Z" fill="#E01E2B"/>
-            <!-- Canasta y cuerdas del aerostato -->
             <path d="M42 82 L38 94 L62 94 L58 82 Z" fill="#B91420"/>
             <rect x="40" y="93" width="20" height="5" rx="1" fill="#FFFFFF"/>
-            <!-- Globo central estilizado -->
             <path d="M50 14 C40 28 40 56 50 70 C60 56 60 28 50 14 Z" fill="#FFFFFF"/>
             <path d="M30 30 C38 34 44 38 50 38 C56 38 62 34 70 30" stroke="#FFFFFF" stroke-width="2" fill="none"/>
             <path d="M32 54 C40 50 45 48 50 48 C55 48 60 50 68 54" stroke="#FFFFFF" stroke-width="2" fill="none"/>
@@ -978,12 +972,8 @@ body {
       </div>
     </aside>
 
-    <!-- ====================================================================
-         ÁREA PRINCIPAL DE CONTENIDO
-         ==================================================================== -->
+    <!-- MAIN WRAPPER -->
     <div class="main-wrapper">
-      
-      <!-- TOPBAR CON BUSCADOR GLOBAL -->
       <header class="topbar">
         <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Abrir Menú">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1004,7 +994,6 @@ body {
               autocomplete="off"
             >
           </div>
-          <!-- Dropdown desplegable con resultados instantáneos -->
           <div id="search-results-dropdown" class="search-results-dropdown"></div>
         </div>
 
@@ -1022,15 +1011,9 @@ body {
         </div>
       </header>
 
-      <!-- CONTENEDOR DINÁMICO DE VISTAS -->
       <main class="content-area">
-
-        <!-- ================================================================
-             VISTA 1: INICIO (HOME CON "UN DÍA COMO HOY" Y PODIO DE LEYENDAS)
-             ================================================================ -->
+        <!-- VISTA: INICIO -->
         <section id="view-inicio" class="view-section active">
-          
-          <!-- Banner Hero de Bienvenida -->
           <div class="bg-gradient-to-r from-red-600 to-red-800 rounded-3xl p-8 sm:p-12 text-white shadow-xl mb-10 relative overflow-hidden">
             <div class="relative z-10 max-w-3xl">
               <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-extrabold uppercase tracking-wider mb-4">
@@ -1051,13 +1034,12 @@ body {
                 </a>
               </div>
             </div>
-            <!-- Globo de agua de fondo decorativo -->
             <div class="absolute -bottom-10 -right-10 w-80 h-80 opacity-15 pointer-events-none">
               <svg viewBox="0 0 100 100" fill="white"><circle cx="50" cy="40" r="36"/><path d="M42 76 L58 76 L54 90 L46 90 Z"/></svg>
             </div>
           </div>
 
-          <!-- MÓDULO "UN DÍA COMO HOY" (Inspirado en Museo Granate) -->
+          <!-- UN DÍA COMO HOY -->
           <div class="mb-12">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <div>
@@ -1072,35 +1054,29 @@ body {
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <!-- Tarjeta Personas / Efemérides -->
               <div class="card-granate">
                 <div class="card-header">
                   <h2>Personas & Hitos</h2>
                   <span class="text-xs font-bold text-slate-400 uppercase">Efemérides</span>
                 </div>
-                <div class="card-body" id="on-this-day-personas">
-                  <!-- Se llena dinámicamente -->
-                </div>
+                <div class="card-body" id="on-this-day-personas"></div>
               </div>
 
-              <!-- Tarjeta Partidos en esta fecha -->
               <div class="card-granate">
                 <div class="card-header">
                   <h2>Partidos Jugados</h2>
                   <span class="text-xs font-bold text-slate-400 uppercase">Historial</span>
                 </div>
-                <div class="card-body" id="on-this-day-partidos">
-                  <!-- Se llena dinámicamente -->
-                </div>
+                <div class="card-body" id="on-this-day-partidos"></div>
               </div>
             </div>
           </div>
 
-          <!-- PODIO DE LEYENDAS (MÁXIMOS GOLEADORES Y PRESENCIAS) -->
+          <!-- PODIO DE LEYENDAS -->
           <div class="mb-12">
             <div class="section-header">
               <h2 class="section-title">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                <svg class="w-8 h-8 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
                 Podio de Leyendas - Goleadores Históricos
               </h2>
               <p class="section-subtitle">Los máximos artilleros que hicieron gritar a la multitud de Parque Patricios</p>
@@ -1109,26 +1085,22 @@ body {
 
             <div class="section-header">
               <h2 class="section-title">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 Récord de Presencias Oficiales
               </h2>
               <p class="section-subtitle">Los futbolistas que más veces defendieron el honor del manto sagrado blanco y rojo</p>
             </div>
             <div id="podio-presencias-container" class="players-grid"></div>
           </div>
-
         </section>
 
-        <!-- ================================================================
-             VISTA 2: JUGADORES (CATÁLOGO COMPLETO CON FILTROS)
-             ================================================================ -->
+        <!-- VISTA: JUGADORES -->
         <section id="view-jugadores" class="view-section">
           <div class="section-header">
             <h2 class="section-title">Archivo de Jugadores</h2>
             <p class="section-subtitle">Base de datos de figuras históricas, cracks y goleadores del Club Atlético Huracán</p>
           </div>
 
-          <!-- Barra de Búsqueda y Filtros -->
           <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm mb-8 space-y-4">
             <div class="flex flex-col md:flex-row gap-4">
               <div class="flex-1">
@@ -1172,9 +1144,7 @@ body {
           <div id="jugadores-list-container" class="players-grid"></div>
         </section>
 
-        <!-- ================================================================
-             VISTA 3: TÉCNICOS
-             ================================================================ -->
+        <!-- VISTA: TÉCNICOS -->
         <section id="view-tecnicos" class="view-section">
           <div class="section-header">
             <h2 class="section-title">Directores Técnicos</h2>
@@ -1183,16 +1153,13 @@ body {
           <div id="tecnicos-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- ================================================================
-             VISTA 4: PALMARÉS (13 TÍTULOS OFICIALES)
-             ================================================================ -->
+        <!-- VISTA: PALMARÉS -->
         <section id="view-palmares" class="view-section">
           <div class="section-header">
             <h2 class="section-title">Palmarés Oficial • 13 Estrellas</h2>
             <p class="section-subtitle">5 Campeonatos de Primera División y 8 Copas Nacionales Oficiales de la AFA</p>
           </div>
 
-          <!-- Pestañas de Filtrado -->
           <div class="filter-bar">
             <button class="filter-pill palmares-tab active" data-category="all">Todos los Títulos (13)</button>
             <button class="filter-pill palmares-tab" data-category="ligas">Campeonatos de Primera División (5)</button>
@@ -1202,9 +1169,7 @@ body {
           <div id="palmares-list-container" class="titles-grid"></div>
         </section>
 
-        <!-- ================================================================
-             VISTA 5: PARTIDOS HISTÓRICOS
-             ================================================================ -->
+        <!-- VISTA: PARTIDOS -->
         <section id="view-partidos" class="view-section">
           <div class="section-header">
             <h2 class="section-title">Partidos Legendarios</h2>
@@ -1213,9 +1178,7 @@ body {
           <div id="partidos-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
         </section>
 
-        <!-- ================================================================
-             VISTA 6: RIVALES & CLÁSICOS
-             ================================================================ -->
+        <!-- VISTA: RIVALES -->
         <section id="view-rivales" class="view-section">
           <div class="section-header">
             <h2 class="section-title">Rivales & Historiales</h2>
@@ -1224,9 +1187,7 @@ body {
           <div id="rivales-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- ================================================================
-             VISTA 7: ESTADIOS & PATRIMONIO
-             ================================================================ -->
+        <!-- VISTA: ESTADIOS -->
         <section id="view-estadios" class="view-section">
           <div class="section-header">
             <h2 class="section-title">Estadios & Sedes</h2>
@@ -1235,9 +1196,7 @@ body {
           <div id="estadios-list-container" class="grid grid-cols-1 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- ================================================================
-             VISTA 8: CAMISETAS HISTÓRICAS
-             ================================================================ -->
+        <!-- VISTA: CAMISETAS -->
         <section id="view-camisetas" class="view-section">
           <div class="section-header">
             <h2 class="section-title">Colección de Camisetas</h2>
@@ -1246,9 +1205,7 @@ body {
           <div id="camisetas-list-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </section>
 
-        <!-- ================================================================
-             VISTA 9: MAPAMUNDI QUEMERO
-             ================================================================ -->
+        <!-- VISTA: MAPAMUNDI -->
         <section id="view-mapamundi" class="view-section">
           <div class="section-header">
             <h2 class="section-title">Mapamundi Quemero</h2>
@@ -1257,9 +1214,7 @@ body {
           <div id="mapamundi-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- ================================================================
-             VISTA 10: TRIVIA QUEMERA INTERACTIVA
-             ================================================================ -->
+        <!-- VISTA: TRIVIA -->
         <section id="view-trivia" class="view-section">
           <div class="section-header text-center max-w-xl mx-auto mb-8">
             <h2 class="section-title justify-center">Trivia Quemera</h2>
@@ -1268,9 +1223,7 @@ body {
           <div id="trivia-game-wrapper"></div>
         </section>
 
-        <!-- ================================================================
-             VISTA 11: INSTITUCIÓN & ORÍGENES
-             ================================================================ -->
+        <!-- VISTA: INSTITUCIÓN -->
         <section id="view-institucion" class="view-section">
           <div class="section-header text-center max-w-2xl mx-auto mb-8">
             <h2 class="section-title justify-center">Institución & Orígenes</h2>
@@ -1278,14 +1231,11 @@ body {
           </div>
           <div id="institucion-content-wrapper"></div>
         </section>
-
       </main>
     </div>
   </div>
 
-  <!-- ====================================================================
-       MODAL UNIVERSAL REUTILIZABLE
-       ==================================================================== -->
+  <!-- MODAL UNIVERSAL -->
   <div id="universal-modal" class="modal-overlay">
     <div class="modal-content">
       <button class="modal-close-btn" onclick="closeUniversalModal()" aria-label="Cerrar ventana">
@@ -1293,13 +1243,11 @@ body {
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
-      <div id="modal-dynamic-content">
-        <!-- Inyección dinámica según ficha -->
-      </div>
+      <div id="modal-dynamic-content"></div>
     </div>
   </div>
 
-  <!-- Scripts de Datos y Lógica -->
+  <!-- Scripts -->
   <script>
 /**
  * Base de Datos Histórica y Oficial del Club Atlético Huracán
@@ -1356,6 +1304,7 @@ const HURACAN_DB = {
   jugadores: [
     {
       id: "masantonio",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Masantonio_elgrafico.jpg/500px-Masantonio_elgrafico.jpg",
       nombre: "Herminio Masantonio",
       apodo: "Masa / El Mortero de Parque Patricios",
       posicion: "Centrodelantero",
@@ -1379,6 +1328,7 @@ const HURACAN_DB = {
     },
     {
       id: "houseman",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Houseman_argentina_photo.jpg/500px-Houseman_argentina_photo.jpg",
       nombre: "René Orlando Houseman",
       apodo: "El Hueso / El Loco",
       posicion: "Puntero Derecho",
@@ -1402,6 +1352,7 @@ const HURACAN_DB = {
     },
     {
       id: "brindisi",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Brindisi_argentina.jpg/500px-Brindisi_argentina.jpg",
       nombre: "Miguel Ángel Brindisi",
       apodo: "Miguelito",
       posicion: "Volante Ofensivo / Delantero",
@@ -1425,6 +1376,7 @@ const HURACAN_DB = {
     },
     {
       id: "babington",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Carlos_Babington.jpg/500px-Carlos_Babington.jpg",
       nombre: "Carlos Alberto Babington",
       apodo: "El Inglés",
       posicion: "Enganche / Número 10",
@@ -1448,6 +1400,7 @@ const HURACAN_DB = {
     },
     {
       id: "alberti",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Argentina_v_brasil_1942.jpg/500px-Argentina_v_brasil_1942.jpg",
       nombre: "Jorge Hugo Alberti",
       apodo: "El Gran Capitán",
       posicion: "Defensor Central",
@@ -1471,6 +1424,7 @@ const HURACAN_DB = {
     },
     {
       id: "baldonedo",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Baldonedo_director_tecnico.jpg/500px-Baldonedo_director_tecnico.jpg",
       nombre: "Emilio Baldonedo",
       apodo: "El Mocho",
       posicion: "Delantero / Entreala",
@@ -1493,6 +1447,7 @@ const HURACAN_DB = {
     },
     {
       id: "stabile",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/5/51/Guillermo_stabile_hincado.jpg",
       nombre: "Guillermo Stábile",
       apodo: "El Filtrador",
       posicion: "Centrodelantero",
@@ -1516,6 +1471,7 @@ const HURACAN_DB = {
     },
     {
       id: "mendez",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Tucho_mendez.jpg/500px-Tucho_mendez.jpg",
       nombre: "Norberto Doroteo Méndez",
       apodo: "Tucho",
       posicion: "Entreala Derecho",
@@ -1539,6 +1495,7 @@ const HURACAN_DB = {
     },
     {
       id: "carrascosa",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/2/25/Jorge_Carrascosa_%281970%29.png",
       nombre: "Jorge Carrascosa",
       apodo: "El Lobo",
       posicion: "Lateral Izquierdo",
@@ -1561,6 +1518,7 @@ const HURACAN_DB = {
     },
     {
       id: "basile",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Basile_masterclass_2013_%28cropped%29.jpg/500px-Basile_masterclass_2013_%28cropped%29.jpg",
       nombre: "Alfio Basile",
       apodo: "Coco",
       posicion: "Zaguero Central",
@@ -1583,6 +1541,7 @@ const HURACAN_DB = {
     },
     {
       id: "marcosdiaz",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg/500px-Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg.png",
       nombre: "Marcos Díaz",
       apodo: "El Rey de los Penales",
       posicion: "Arquero",
@@ -1629,6 +1588,7 @@ const HURACAN_DB = {
     },
     {
       id: "pastore",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/e/e2/PSG-Shakhter15_%2812%29.jpg",
       nombre: "Javier Matías Pastore",
       apodo: "El Flaco",
       posicion: "Enganche / Mediapunta",
@@ -1651,6 +1611,7 @@ const HURACAN_DB = {
     },
     {
       id: "montenegro",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/e/e2/Daniel_Rolfi_Montenegro.jpg",
       nombre: "Daniel Gastón Montenegro",
       apodo: "Rolfi",
       posicion: "Enganche / Delantero",
@@ -1695,6 +1656,7 @@ const HURACAN_DB = {
     },
     {
       id: "mohamed",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/XXIII_Memorial_Quinocho_%28RC_Celta_vs_Mainz_05%29_-_04_%28cropped%29.jpg/500px-XXIII_Memorial_Quinocho_%28RC_Celta_vs_Mainz_05%29_-_04_%28cropped%29.jpg",
       nombre: "Antonio Ricardo Mohamed",
       apodo: "El Turco",
       posicion: "Delantero",
@@ -1718,6 +1680,7 @@ const HURACAN_DB = {
     },
     {
       id: "onzari",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Cesareo_onzari_huracan.jpg/500px-Cesareo_onzari_huracan.jpg",
       nombre: "Cesáreo Onzari",
       apodo: "El Inventor del Gol Olímpico",
       posicion: "Puntero Izquierdo",
@@ -1740,6 +1703,7 @@ const HURACAN_DB = {
     },
     {
       id: "chiesa",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/0/04/%C3%81ngel_Chiesa%2C_Estadio%2C_1945-01-12_%2887%29.jpg",
       nombre: "Ángel Chiesa",
       apodo: "El Romperedes del 20",
       posicion: "Delantero",
@@ -1788,6 +1752,7 @@ const HURACAN_DB = {
   tecnicos: [
     {
       id: "menotti",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/C%C3%A9sar_Luis_Menotti_in_Recoleta.jpg/500px-C%C3%A9sar_Luis_Menotti_in_Recoleta.jpg",
       nombre: "César Luis Menotti",
       apodo: "El Flaco",
       periodo: "1971 - 1974",
@@ -1799,6 +1764,7 @@ const HURACAN_DB = {
     },
     {
       id: "cappa",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/%C3%81ngel_Cappa.jpg/500px-%C3%81ngel_Cappa.jpg",
       nombre: "Ángel Cappa",
       apodo: "El Filósofo del Tiki-Tiki",
       periodo: "2008 - 2009",
@@ -2195,6 +2161,7 @@ const HURACAN_DB = {
   estadios: [
     {
       id: "palacio-duco",
+      foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Estadio_huracan_interior_tribuna_gcba.jpg/640px-Estadio_huracan_interior_tribuna_gcba.jpg",
       nombre: "Estadio Tomás Adolfo Ducó ('El Palacio')",
       inauguracion: "7 de septiembre de 1947 (inauguración oficial de cemento: 10 de noviembre de 1949)",
       capacidad: 48314,
@@ -2576,8 +2543,205 @@ if (typeof window !== "undefined") {
   window.HURACAN_DB = HURACAN_DB;
 }
 
-</script>
-<script>
+  </script>
+  <script>
+
+function getJerseySvg(camId) {
+  const balloon = `
+    <g transform="translate(100, 75) scale(0.35)">
+      <ellipse cx="0" cy="-10" rx="24" ry="28" fill="#E01E2B" />
+      <path d="M-8 15 L8 15 L5 25 L-5 25 Z" fill="#B91420" />
+      <rect x="-4" y="24" width="8" height="3" fill="#FFFFFF" />
+      <path d="M0 -34 C-8 -20 -8 0 0 12 C8 0 8 -20 0 -34 Z" fill="#FFFFFF" />
+    </g>
+  `;
+
+  if (camId === 'cam-1908') {
+    return `
+      <svg viewBox="0 0 200 200" class="w-full h-44 drop-shadow-md mx-auto" xmlns="http://www.w3.org/2000/svg">
+        <!-- Camiseta 1908: Blanca clásica, cuello cordones, globo artesanal bordado -->
+        <path d="M60 30 L30 65 L48 80 L65 58 L65 175 L135 175 L135 58 L152 80 L170 65 L140 30 Z" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="2" />
+        <!-- Cuello con cordones cruzados -->
+        <path d="M85 30 L100 55 L115 30 Z" fill="#E2E8F0" />
+        <line x1="93" y1="36" x2="107" y2="48" stroke="#64748B" stroke-width="2"/>
+        <line x1="107" y1="36" x2="93" y2="48" stroke="#64748B" stroke-width="2"/>
+        <!-- Globo bordado a mano al corazón -->
+        <g transform="translate(80, 68) scale(0.25)">
+          <ellipse cx="0" cy="-10" rx="24" ry="28" fill="#E01E2B" />
+          <path d="M-8 15 L8 15 L5 25 L-5 25 Z" fill="#B91420" />
+        </g>
+      </svg>
+    `;
+  } else if (camId === 'cam-1925') {
+    return `
+      <svg viewBox="0 0 200 200" class="w-full h-44 drop-shadow-md mx-auto" xmlns="http://www.w3.org/2000/svg">
+        <!-- Camiseta 1925: Tetracampeona, cuello polo y puños rojos -->
+        <path d="M60 30 L30 65 L48 80 L65 58 L65 175 L135 175 L135 58 L152 80 L170 65 L140 30 Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" />
+        <!-- Puños rojos -->
+        <path d="M30 65 L48 80 L43 85 L25 70 Z" fill="#E01E2B" />
+        <path d="M170 65 L152 80 L157 85 L175 70 Z" fill="#E01E2B" />
+        <!-- Cuello solapa -->
+        <path d="M82 30 L100 45 L118 30 L100 36 Z" fill="#E01E2B" />
+        <!-- Globo en el pecho -->
+        <g transform="translate(82, 70) scale(0.28)">
+          <ellipse cx="0" cy="-10" rx="24" ry="28" fill="#E01E2B" />
+          <path d="M-8 15 L8 15 L5 25 L-5 25 Z" fill="#B91420" />
+        </g>
+      </svg>
+    `;
+  } else if (camId === 'cam-1973') {
+    return `
+      <svg viewBox="0 0 200 200" class="w-full h-44 drop-shadow-md mx-auto" xmlns="http://www.w3.org/2000/svg">
+        <!-- Camiseta 1973: Menotti Campeón, cuello en V rojo vivo y puños rojos -->
+        <path d="M60 30 L30 65 L48 80 L65 58 L65 175 L135 175 L135 58 L152 80 L170 65 L140 30 Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" />
+        <!-- Cuello V rojo grueso -->
+        <path d="M85 30 L100 58 L115 30 L100 42 Z" fill="#E01E2B" />
+        <path d="M30 65 L48 80 L42 84 L26 71 Z" fill="#E01E2B" />
+        <path d="M170 65 L152 80 L158 84 L174 71 Z" fill="#E01E2B" />
+        <!-- Globo grande de Jorge Newbery al centro -->
+        ${balloon}
+        <!-- Dorsal mítica estrella -->
+        <text x="100" y="145" font-size="28" font-weight="900" text-anchor="middle" fill="#E01E2B" font-family="sans-serif">73</text>
+      </svg>
+    `;
+  } else if (camId === 'cam-1980') {
+    return `
+      <svg viewBox="0 0 200 200" class="w-full h-44 drop-shadow-md mx-auto" xmlns="http://www.w3.org/2000/svg">
+        <!-- Camiseta 1980: Adidas 3 tiras rojas -->
+        <path d="M60 30 L30 65 L48 80 L65 58 L65 175 L135 175 L135 58 L152 80 L170 65 L140 30 Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" />
+        <!-- 3 tiras rojas en mangas -->
+        <line x1="56" y1="36" x2="33" y2="67" stroke="#E01E2B" stroke-width="2.5"/>
+        <line x1="51" y1="39" x2="37" y2="71" stroke="#E01E2B" stroke-width="2.5"/>
+        <line x1="46" y1="42" x2="42" y2="76" stroke="#E01E2B" stroke-width="2.5"/>
+        <line x1="144" y1="36" x2="167" y2="67" stroke="#E01E2B" stroke-width="2.5"/>
+        <line x1="149" y1="39" x2="163" y2="71" stroke="#E01E2B" stroke-width="2.5"/>
+        <line x1="154" y1="42" x2="158" y2="76" stroke="#E01E2B" stroke-width="2.5"/>
+        <!-- Cuello polo rojo -->
+        <path d="M85 30 L100 48 L115 30 Z" fill="#E01E2B" />
+        <!-- Globo -->
+        <g transform="translate(80, 70) scale(0.25)">
+          <ellipse cx="0" cy="-10" rx="24" ry="28" fill="#E01E2B" />
+          <path d="M-8 15 L8 15 L5 25 L-5 25 Z" fill="#B91420" />
+        </g>
+      </svg>
+    `;
+  } else if (camId === 'cam-1990') {
+    return `
+      <svg viewBox="0 0 200 200" class="w-full h-44 drop-shadow-md mx-auto" xmlns="http://www.w3.org/2000/svg">
+        <!-- Camiseta 1990: Puma / Sponsor Medicus -->
+        <path d="M60 30 L30 65 L48 80 L65 58 L65 175 L135 175 L135 58 L152 80 L170 65 L140 30 Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" />
+        <!-- Hombros con diseño geométrico rojo -->
+        <polygon points="60,30 85,30 65,58" fill="#E01E2B"/>
+        <polygon points="140,30 115,30 135,58" fill="#E01E2B"/>
+        <!-- Cuello -->
+        <path d="M85 30 L100 52 L115 30 Z" fill="#E01E2B" />
+        <!-- Globo -->
+        <g transform="translate(80, 68) scale(0.24)">
+          <ellipse cx="0" cy="-10" rx="24" ry="28" fill="#E01E2B" />
+          <path d="M-8 15 L8 15 L5 25 L-5 25 Z" fill="#B91420" />
+        </g>
+        <!-- Sponsor MEDICUS en azul marino -->
+        <rect x="75" y="105" width="50" height="15" rx="3" fill="#0A1931"/>
+        <text x="100" y="116" font-size="8" font-weight="900" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" letter-spacing="1">MEDICUS</text>
+      </svg>
+    `;
+  } else if (camId === 'cam-2009') {
+    return `
+      <svg viewBox="0 0 200 200" class="w-full h-44 drop-shadow-md mx-auto" xmlns="http://www.w3.org/2000/svg">
+        <!-- Camiseta 2009: Kappa Tiki-Tiki Motomel -->
+        <path d="M60 30 L30 65 L48 80 L65 58 L65 175 L135 175 L135 58 L152 80 L170 65 L140 30 Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" />
+        <!-- Paneles laterales rojos -->
+        <path d="M65 80 Q72 120 65 175 L65 80 Z" fill="#E01E2B"/>
+        <path d="M135 80 Q128 120 135 175 L135 80 Z" fill="#E01E2B"/>
+        <!-- Omini de Kappa en hombros -->
+        <circle cx="50" cy="50" r="3" fill="#E01E2B"/>
+        <circle cx="150" cy="50" r="3" fill="#E01E2B"/>
+        <!-- Globo -->
+        <g transform="translate(80, 68) scale(0.24)">
+          <ellipse cx="0" cy="-10" rx="24" ry="28" fill="#E01E2B" />
+          <path d="M-8 15 L8 15 L5 25 L-5 25 Z" fill="#B91420" />
+        </g>
+        <!-- Sponsor MOTOMEL -->
+        <rect x="72" y="105" width="56" height="16" rx="3" fill="#E01E2B"/>
+        <text x="100" y="116" font-size="8" font-weight="900" text-anchor="middle" fill="#FFFFFF" font-family="sans-serif" letter-spacing="1">MOTOMEL</text>
+      </svg>
+    `;
+  } else if (camId === 'cam-2014') {
+    return `
+      <svg viewBox="0 0 200 200" class="w-full h-44 drop-shadow-md mx-auto" xmlns="http://www.w3.org/2000/svg">
+        <!-- Camiseta 2014: Campeón Copa Argentina TBS Banco Ciudad -->
+        <path d="M60 30 L30 65 L48 80 L65 58 L65 175 L135 175 L135 58 L152 80 L170 65 L140 30 Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" />
+        <!-- Cuello con solapa roja moderna -->
+        <path d="M85 30 L100 48 L115 30 Z" fill="#E01E2B" />
+        <!-- Globo -->
+        <g transform="translate(80, 68) scale(0.25)">
+          <ellipse cx="0" cy="-10" rx="24" ry="28" fill="#E01E2B" />
+          <path d="M-8 15 L8 15 L5 25 L-5 25 Z" fill="#B91420" />
+        </g>
+        <!-- Estrella dorada arriba del escudo -->
+        <polygon points="80,52 82,56 86,56 83,59 84,63 80,60 76,63 77,59 74,56 78,56" fill="#F59E0B"/>
+        <!-- Sponsor Banco Ciudad -->
+        <text x="100" y="114" font-size="7.5" font-weight="900" text-anchor="middle" fill="#003B8E" font-family="sans-serif">Banco Ciudad</text>
+      </svg>
+    `;
+  } else {
+    // Camiseta 2024 moderna
+    return `
+      <svg viewBox="0 0 200 200" class="w-full h-44 drop-shadow-md mx-auto" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60 30 L30 65 L48 80 L65 58 L65 175 L135 175 L135 58 L152 80 L170 65 L140 30 Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2" />
+        <!-- Trama Art-Déco sutil de la torre del Palacio -->
+        <path d="M90 60 L100 35 L110 60 L100 85 Z" fill="none" stroke="#F1F5F9" stroke-width="2"/>
+        <path d="M80 120 L100 95 L120 120 L100 145 Z" fill="none" stroke="#F1F5F9" stroke-width="2"/>
+        <!-- Cuello -->
+        <path d="M85 30 L100 46 L115 30 Z" fill="#E01E2B" />
+        <!-- Globo -->
+        <g transform="translate(80, 68) scale(0.25)">
+          <ellipse cx="0" cy="-10" rx="24" ry="28" fill="#E01E2B" />
+          <path d="M-8 15 L8 15 L5 25 L-5 25 Z" fill="#B91420" />
+        </g>
+        <!-- Sponsor Decrypto -->
+        <text x="100" y="115" font-size="8" font-weight="900" text-anchor="middle" fill="#0F172A" font-family="sans-serif" letter-spacing="1.5">DECRYPTO</text>
+      </svg>
+    `;
+  }
+}
+
+
+function getPlayerCardHtml(jug, badgeText) {
+  const fotoUrl = jug.foto || 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg/500px-Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg.png';
+  return `
+    <div class="player-card group" onclick="openPlayerModal('${jug.id}')">
+      <div class="player-avatar-wrapper relative h-64 overflow-hidden bg-slate-900">
+        <img src="${fotoUrl}" alt="${jug.nombre}" 
+             class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105 filter brightness-95" 
+             onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg/500px-Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg.png';">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/25 to-transparent"></div>
+        <span class="player-card-badge">${badgeText || jug.posicion}</span>
+        <div class="absolute bottom-3 left-4 right-4 text-white">
+          <span class="text-[10px] uppercase font-extrabold tracking-widest text-red-400 bg-black/50 px-2 py-0.5 rounded backdrop-blur-sm">${jug.decada}</span>
+          <h4 class="text-xl font-black tracking-tight leading-tight mt-1 drop-shadow-md text-white">${jug.nombre}</h4>
+          <p class="text-xs text-slate-300 font-medium truncate">"${jug.apodo}"</p>
+        </div>
+      </div>
+      <div class="player-card-info p-4 bg-white flex flex-col justify-between flex-1">
+        <div class="player-stats-row">
+          <div class="stat-item">
+            <div class="stat-val">${jug.partidos}</div>
+            <div class="stat-lbl">Partidos</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val">${jug.goles}</div>
+            <div class="stat-lbl">Goles</div>
+          </div>
+        </div>
+        <button class="btn-outline w-full mt-3 justify-center text-xs py-2 font-bold group-hover:bg-red-600 group-hover:text-white transition-all">
+          Ver Ficha Histórica &rarr;
+        </button>
+      </div>
+    </div>
+  `;
+}
+
 /**
  * Museo Quemero - Motor de la Aplicación
  * Club Atlético Huracán
@@ -2902,7 +3066,10 @@ function renderInicio() {
   const podioPresencias = document.getElementById("podio-presencias-container");
 
   if (podioGoleadores) {
-    podioGoleadores.innerHTML = HURACAN_DB.topGoleadores.slice(0, 4).map((jug, idx) => `
+    podioGoleadores.innerHTML = HURACAN_DB.topGoleadores.slice(0, 4).map((j, idx) => {
+      const jug = HURACAN_DB.jugadores.find(item => item.id === j.id) || j;
+      return getPlayerCardHtml(jug, `#${idx + 1} Goleador`);
+    }).join(""); return; podioGoleadores.innerHTML = HURACAN_DB.topGoleadores.slice(0, 4).map((jug, idx) => `
       <div class="player-card" onclick="openPlayerModal('${jug.id}')">
         <div class="player-avatar-wrapper">
           <div class="player-avatar-circle">${jug.nombre.charAt(0)}</div>
@@ -2927,7 +3094,10 @@ function renderInicio() {
   }
 
   if (podioPresencias) {
-    podioPresencias.innerHTML = HURACAN_DB.topPresencias.slice(0, 4).map((jug, idx) => `
+    podioPresencias.innerHTML = HURACAN_DB.topPresencias.slice(0, 4).map((j, idx) => {
+      const jug = HURACAN_DB.jugadores.find(item => item.id === j.id) || j;
+      return getPlayerCardHtml(jug, `#${idx + 1} Presencias`);
+    }).join(""); return; podioPresencias.innerHTML = HURACAN_DB.topPresencias.slice(0, 4).map((jug, idx) => `
       <div class="player-card" onclick="openPlayerModal('${jug.id}')">
         <div class="player-avatar-wrapper">
           <div class="player-avatar-circle">${jug.nombre.charAt(0)}</div>
@@ -2999,7 +3169,7 @@ function renderJugadores() {
         return;
       }
 
-      container.innerHTML = list.map(jug => `
+      container.innerHTML = list.map(jug => getPlayerCardHtml(jug)).join(""); return; container.innerHTML = list.map(jug => `
         <div class="player-card" onclick="openPlayerModal('${jug.id}')">
           <div class="player-avatar-wrapper">
             <div class="player-avatar-circle">${jug.nombre.charAt(0)}</div>
@@ -3038,7 +3208,50 @@ function renderJugadores() {
 /* ==========================================================================
    VISTA: TÉCNICOS
    ========================================================================== */
+
 function renderTecnicos() {
+  const container = document.getElementById("tecnicos-list-container");
+  if (!container) return;
+
+  container.innerHTML = HURACAN_DB.tecnicos.map(dt => {
+    const fotoUrl = dt.foto || 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg/500px-Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg.png';
+    return `
+      <div class="card-granate overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all">
+        <div>
+          <div class="h-48 overflow-hidden relative bg-slate-900">
+            <img src="${fotoUrl}" alt="${dt.nombre}" class="w-full h-full object-cover object-top filter brightness-95" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg/500px-Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg.png';">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+            <div class="absolute bottom-3 left-4 right-4 text-white">
+              <span class="px-2.5 py-0.5 bg-red-600 text-white text-xs font-bold rounded-full">${dt.periodo}</span>
+              <h3 class="text-xl font-black text-white mt-1 leading-tight">${dt.nombre}</h3>
+            </div>
+          </div>
+
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-3 text-xs text-slate-500">
+              <span class="font-bold text-red-600">"${dt.apodo}"</span>
+              <span><strong>${dt.partidos}</strong> PJ • ${dt.efectividad} efect.</span>
+            </div>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">${dt.descripcion}</p>
+            
+            <div class="mb-4">
+              <h5 class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Títulos y Logros</h5>
+              <div class="flex flex-wrap gap-1.5">
+                ${dt.titulos.map(t => `<span class="px-2 py-1 bg-red-50 text-red-800 text-xs rounded-md font-semibold border border-red-100">${t}</span>`).join("")}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 bg-slate-50 border-t border-slate-100 text-xs italic text-gray-700">
+          ${dt.frase}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function old_renderTecnicos() {
   const container = document.getElementById("tecnicos-list-container");
   if (!container) return;
 
@@ -3197,7 +3410,56 @@ function renderRivales() {
 /* ==========================================================================
    VISTA: ESTADIOS Y PATRIMONIO
    ========================================================================== */
+
 function renderEstadios() {
+  const container = document.getElementById("estadios-list-container");
+  if (!container) return;
+
+  container.innerHTML = HURACAN_DB.estadios.map(est => {
+    const fotoUrl = est.foto || 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg/500px-Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg.png';
+    return `
+      <div class="card-granate overflow-hidden hover:shadow-lg transition-all">
+        <div class="h-56 overflow-hidden relative bg-slate-900">
+          <img src="${fotoUrl}" alt="${est.nombre}" class="w-full h-full object-cover" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg/500px-Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg.png';">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+          <div class="absolute bottom-3 left-4 right-4 text-white">
+            <span class="px-2.5 py-0.5 bg-red-600 text-white text-xs font-bold rounded-full uppercase">Patrimonio Histórico</span>
+            <h3 class="text-xl font-black mt-1 leading-tight text-white">${est.nombre}</h3>
+          </div>
+        </div>
+
+        <div class="p-6">
+          <div class="text-xs text-gray-500 mb-4 space-y-1 bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <div><strong>Inauguración:</strong> ${est.inauguracion}</div>
+            <div><strong>Ubicación:</strong> ${est.ubicacion}</div>
+            <div><strong>Capacidad:</strong> ${est.capacidad.toLocaleString()} espectadores</div>
+          </div>
+          <p class="text-xs text-gray-600 mb-4 leading-relaxed">${est.arquitectura}</p>
+          
+          ${est.tribunas ? `
+            <div class="mb-4">
+              <h5 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Tribunas del Palacio</h5>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                ${est.tribunas.map(trib => `
+                  <div class="p-2.5 bg-red-50/50 border border-red-100 rounded-lg text-xs">
+                    <div class="font-bold text-gray-900">${trib.nombre}</div>
+                    <div class="text-gray-500">${trib.sector} (${trib.capacidad} pers.)</div>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="p-3 bg-red-100/60 text-red-900 text-xs rounded-lg font-semibold">
+            ★ ${est.distincion}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function old_renderEstadios() {
   const container = document.getElementById("estadios-list-container");
   if (!container) return;
 
@@ -3236,7 +3498,36 @@ function renderEstadios() {
 /* ==========================================================================
    VISTA: CAMISETAS HISTÓRICAS
    ========================================================================== */
+
 function renderCamisetas() {
+  const container = document.getElementById("camisetas-list-container");
+  if (!container) return;
+
+  container.innerHTML = HURACAN_DB.camisetas.map(cam => `
+    <div class="card-granate overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all group">
+      <div class="bg-gradient-to-b from-slate-100 to-white p-4 border-b border-slate-100 flex items-center justify-center">
+        ${getJerseySvg(cam.id)}
+      </div>
+      <div class="p-6 flex-1 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl font-black text-red-600">${cam.anio}</span>
+            <span class="px-2.5 py-1 bg-slate-100 text-slate-800 text-xs font-bold rounded-md">${cam.marca}</span>
+          </div>
+          <h4 class="text-lg font-extrabold text-gray-900 mb-1">${cam.nombre}</h4>
+          <span class="text-xs text-gray-400 block mb-3">Patrocinio: ${cam.sponsor}</span>
+          <p class="text-sm text-gray-600 mb-4 leading-relaxed">${cam.descripcion}</p>
+        </div>
+
+        <div class="pt-3 border-t border-gray-100 text-xs text-slate-600 bg-red-50/50 p-2.5 rounded-lg">
+          <strong class="text-red-700">Hitos con esta casaca:</strong> ${cam.titulos}
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function old_renderCamisetas() {
   const container = document.getElementById("camisetas-list-container");
   if (!container) return;
 
@@ -3455,7 +3746,70 @@ function renderInstitucion() {
 /* ==========================================================================
    MODALES UNIVERSALES
    ========================================================================== */
+
 window.openPlayerModal = function(id) {
+  const jug = HURACAN_DB.jugadores.find(j => j.id === id);
+  if (!jug) return;
+
+  const modal = document.getElementById("universal-modal");
+  const modalBody = document.getElementById("modal-dynamic-content");
+  const fotoUrl = jug.foto || 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg/500px-Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg.png';
+
+  modalBody.innerHTML = `
+    <div class="overflow-hidden rounded-2xl">
+      <div class="relative h-64 sm:h-80 bg-slate-900 overflow-hidden">
+        <img src="${fotoUrl}" alt="${jug.nombre}" class="w-full h-full object-cover object-top filter brightness-95" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg/500px-Emblema_oficial_del_Club_Atl%C3%A9tico_Hurac%C3%A1n.svg.png';">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+        <div class="absolute bottom-5 left-6 right-6 text-white">
+          <span class="px-3 py-1 bg-red-600 text-white font-extrabold text-xs rounded-full uppercase tracking-wider">${jug.posicion}</span>
+          <h3 class="text-3xl font-black mt-2 leading-tight">${jug.nombre}</h3>
+          <p class="text-sm text-red-200">"${jug.apodo}" • ${jug.periodo}</p>
+        </div>
+      </div>
+
+      <div class="p-6 sm:p-8">
+        <div class="grid grid-cols-3 gap-3 bg-slate-50 p-4 rounded-xl text-center mb-6 border border-slate-200">
+          <div>
+            <div class="text-2xl font-black text-red-600">${jug.partidos}</div>
+            <div class="text-xs uppercase font-bold text-gray-400">Partidos</div>
+          </div>
+          <div>
+            <div class="text-2xl font-black text-gray-900">${jug.goles}</div>
+            <div class="text-xs uppercase font-bold text-gray-400">Goles</div>
+          </div>
+          <div>
+            <div class="text-2xl font-black text-gray-900">${jug.promedio}</div>
+            <div class="text-xs uppercase font-bold text-gray-400">Promedio</div>
+          </div>
+        </div>
+
+        <h5 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Biografía y Trayectoria</h5>
+        <p class="text-sm text-gray-700 leading-relaxed mb-6">${jug.descripcion}</p>
+
+        <h5 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Hitos y Récords</h5>
+        <ul class="space-y-2 mb-6">
+          ${jug.hitos.map(h => `
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-4 h-4 text-red-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>${h}</span>
+            </li>
+          `).join("")}
+        </ul>
+
+        <div class="pt-4 border-t border-gray-200 flex justify-between text-xs text-gray-500">
+          <span><strong>Nacimiento:</strong> ${jug.nacimiento}</span>
+          ${jug.fallecimiento ? `<span><strong>Fallecimiento:</strong> ${jug.fallecimiento}</span>` : ''}
+        </div>
+      </div>
+    </div>
+  `;
+
+  modal.classList.add("active");
+};
+
+window.old_openPlayerModal = function(id) {
   const jug = HURACAN_DB.jugadores.find(j => j.id === id);
   if (!jug) return;
 
@@ -3669,6 +4023,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-</script>
+  </script>
 </body>
 </html>
