@@ -1,7 +1,7 @@
 # Museo Quemero - Club Atlético Huracán
 ### Archivo Histórico, Estadístico y Patrimonio del Globo
 
-Plataforma digital interactiva inspirada en la arquitectura de información y experiencia de usuario de [Museo Granate](https://museogranate.clublanus.com/), adaptada integralmente a la identidad, mística y gloria del **Club Atlético Huracán** ("El Globo", Parque Patricios, Buenos Aires, Argentina).
+Plataforma digital interactiva y archivo histórico integral dedicado a preservar y difundir la identidad, la mística y la gloria centenaria del **Club Atlético Huracán** ("El Globo", Parque Patricios, Buenos Aires, Argentina).
 
 ---
 
