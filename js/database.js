@@ -28,10 +28,10 @@ const HURACAN_DB = {
       "imagen": "assets/imagen_museo_huracan.jpg",
       "comunicado": "El Club Atlético Huracán avanza en los estudios preparatorios y la planificación del anteproyecto para que la comunidad quemera cuente con su ansiado Museo Oficial en las instalaciones del Estadio Tomás Adolfo Ducó. Se trata de un espacio soñado que buscará reunir, resguardar y poner en valor más de 115 años de gloria deportiva, hazañas memorables y la memoria colectiva de nuestra institución.",
       "llamado": "En esta etapa preliminar de diagnóstico y relevamiento, convocamos a socios, socias, hinchas y familias quemeras a sumarse a un censo histórico de objetos y recuerdos. Aclaración fundamental: todavía NO estamos recibiendo donaciones físicas ni comodatos en las sedes del club mientras se adecúan las instalaciones. Por el momento, la convocatoria es exclusivamente para que nos envíes FOTOS o VIDEOS de los objetos que atesoras (carnets antiguos, entradas de época, camisetas históricas, banderines, medallas o fotos inéditas), para poder dimensionar y catalogar el acervo patrimonial del pueblo huracanense.",
-      "whatsappUrl": "https://wa.me/?text=Hola,%20tengo%20fotos/videos%20de%20material%20hist%C3%B3rico%20para%20el%20relevamiento%20del%20Museo%20de%20Hurac%C3%A1n",
-      "whatsappTexto": "Enviar Fotos/Videos vía WhatsApp",
-      "emailUrl": "mailto:museo@cahuracan.com?subject=[Relevamiento%20Museo%20Hurac%C3%A1n]%20Env%C3%ADo%20de%20fotos%20y%20material&body=Hola%20Equipo%20del%20Museo%20de%20Hurac%C3%A1n,%0A%0AMi%20nombre%20es:%20%0ASoy%20(Socio/Hincha):%20%0ATel%C3%A9fono%20de%20contacto:%20%0A%0AAdjunto%20fotos/videos%20del%20siguiente%20material%20que%20poseo%20en%20mi%20hogar:%0ADescripci%C3%B3n%20del%20objeto/recuerdo:%20%0A%0A%C2%A1Vamos%20Globo!",
-      "emailTexto": "Enviar Fotos por Correo"
+      "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfMTCY_pqfB95vMi0paOPXJwTKal1UaupDhlnA8QHoE6_3p3g/viewform?embedded=true",
+      "formUrlDirecta": "https://forms.gle/V11JVbZKBbENxixZ7",
+      "botonTexto": "Completar Formulario de Relevamiento",
+      "botonSubtexto": "Cargar fotos, videos o detalles de tus recuerdos"
     },
     "ultimoResultado": {
       "rival": "River Plate",
