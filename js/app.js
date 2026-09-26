@@ -694,35 +694,137 @@ function renderCampanaMuseo() {
             </p>
           </div>
 
-          <!-- Botones de Acción Directa WhatsApp y Correo -->
-          <div class="flex flex-wrap gap-3 pt-2">
-            <a 
-              href="${camp.whatsappUrl}" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2.5 px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm rounded-full shadow-lg hover:shadow-emerald-600/30 transition-all transform hover:-translate-y-0.5"
+          <!-- Botón de apertura / despliegue del Formulario Integrado -->
+          <div class="pt-2">
+            <button 
+              type="button"
+              id="btn-toggle-formulario-museo"
+              onclick="toggleFormularioMuseo()" 
+              class="inline-flex items-center gap-3 px-6 py-3.5 bg-gradient-to-r from-red-600 via-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-black text-xs sm:text-sm rounded-full shadow-xl hover:shadow-red-600/50 transition-all transform hover:-translate-y-0.5 cursor-pointer border border-red-400/40"
             >
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
               </svg>
-              <span>${camp.whatsappTexto}</span>
-            </a>
+              <span id="btn-toggle-formulario-texto">${camp.botonTexto || 'Completar Formulario de Relevamiento'}</span>
+              <svg id="btn-toggle-formulario-icon" class="w-4 h-4 transition-transform duration-300 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenedor Desplegable del Formulario Integrado (se extiende hacia abajo) -->
+      <div id="formulario-museo-wrapper" class="hidden mt-8 pt-8 border-t border-red-800/40">
+        <div class="bg-white text-slate-900 rounded-2xl shadow-2xl overflow-hidden border-2 border-red-600/40">
+          
+          <!-- Encabezado / Barra superior con botón Salir/Cerrar -->
+          <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-red-950 px-4 py-3 sm:px-6 flex items-center justify-between border-b border-red-900/40">
+            <div class="flex items-center gap-2 sm:gap-3">
+              <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
+              <div>
+                <h4 class="text-xs sm:text-sm font-black text-white tracking-wide">
+                  📋 Formulario Oficial de Relevamiento Histórico
+                </h4>
+                <p class="text-[11px] text-red-200 hidden sm:block">
+                  Carga tus datos, fotos o videos directamente aquí para el Museo de Huracán
+                </p>
+              </div>
+            </div>
+            <button 
+              type="button"
+              onclick="toggleFormularioMuseo(false)" 
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-full transition-all shadow-md cursor-pointer hover:scale-105"
+              title="Cerrar y volver"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+              <span>Salir / Cerrar</span>
+            </button>
+          </div>
+
+          <!-- Contenedor del Iframe con scroll táctil responsive -->
+          <div class="relative w-full bg-slate-100 overflow-hidden" style="min-height: 700px; -webkit-overflow-scrolling: touch;">
+            <iframe 
+              id="google-form-iframe"
+              src="${camp.formUrl || 'https://docs.google.com/forms/d/e/1FAIpQLSfMTCY_pqfB95vMi0paOPXJwTKal1UaupDhlnA8QHoE6_3p3g/viewform?embedded=true'}" 
+              width="100%" 
+              height="850" 
+              frameborder="0" 
+              marginheight="0" 
+              marginwidth="0"
+              class="w-full block border-0 bg-white"
+              style="min-height: 750px; height: 85vh; max-height: 900px;"
+              title="Formulario Oficial de Relevamiento - Museo Huracán"
+            >
+              Cargando formulario de relevamiento...
+            </iframe>
+          </div>
+
+          <!-- Barra de pie con botón Salir y enlace en caso de problemas -->
+          <div class="bg-slate-50 px-4 py-3 sm:px-6 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 text-xs text-slate-600">
+            <button 
+              type="button"
+              onclick="toggleFormularioMuseo(false)" 
+              class="inline-flex items-center gap-2 px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold rounded-full transition-all cursor-pointer"
+            >
+              <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+              </svg>
+              <span>✕ Ocultar / Cerrar Formulario</span>
+            </button>
 
             <a 
-              href="${camp.emailUrl}" 
-              class="inline-flex items-center gap-2.5 px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm rounded-full shadow-lg hover:shadow-red-600/30 transition-all transform hover:-translate-y-0.5"
+              href="${camp.formUrlDirecta || 'https://forms.gle/V11JVbZKBbENxixZ7'}" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="text-red-700 hover:text-red-800 hover:underline font-bold inline-flex items-center gap-1.5"
             >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              <span>¿No carga bien en tu dispositivo? Abrir en pantalla completa</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
               </svg>
-              <span>${camp.emailTexto}</span>
             </a>
           </div>
+
         </div>
       </div>
     </div>
   `;
 }
+
+// Control interactivo del Formulario de Relevamiento del Museo (extensión hacia abajo / ocultar)
+function toggleFormularioMuseo(forceOpen) {
+  const wrapper = document.getElementById("formulario-museo-wrapper");
+  const btnText = document.getElementById("btn-toggle-formulario-texto");
+  const btnIcon = document.getElementById("btn-toggle-formulario-icon");
+  if (!wrapper) return;
+
+  const isHidden = wrapper.classList.contains("hidden");
+  const shouldOpen = (forceOpen !== undefined) ? forceOpen : isHidden;
+
+  if (shouldOpen) {
+    wrapper.classList.remove("hidden");
+    if (btnText) btnText.textContent = "✕ Ocultar Formulario";
+    if (btnIcon) btnIcon.classList.add("rotate-180");
+    setTimeout(() => {
+      wrapper.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  } else {
+    wrapper.classList.add("hidden");
+    if (btnText) {
+      const camp = HURACAN_DB && HURACAN_DB.info && HURACAN_DB.info.campanaMuseo;
+      btnText.textContent = (camp && camp.botonTexto) ? camp.botonTexto : "Completar Formulario de Relevamiento";
+    }
+    if (btnIcon) btnIcon.classList.remove("rotate-180");
+    const topCard = document.getElementById("campana-museo-container");
+    if (topCard) {
+      topCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+}
+window.toggleFormularioMuseo = toggleFormularioMuseo;
 
 // Widget del Último Resultado Deportivo
 function renderUltimoResultado() {
